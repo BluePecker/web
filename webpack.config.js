@@ -16,9 +16,11 @@ module.exports = {
     },
     devtool  : 'eval-source-map',
     devServer: {
-        inline     : true,
-        hot        : true,
-        contentBase: "./dist",
+        contentBase       : "./dist",
+        inline            : true,
+        hot               : true,
+        historyApiFallback: true,
+        process           : true,
     },
     module   : {
         rules: [
