@@ -9,7 +9,7 @@ const htmlwebpackplugin = require('html-webpack-plugin');
 const manifestplugin = require('manifest-webpack-plugin');
 
 module.exports = {
-    entry    : __dirname + "/src/main.js",
+    entry    : __dirname + "/public/src/main.js",
     output   : {
         path    : __dirname + "/dist",
         filename: "asset/js/[hash].js",
@@ -20,7 +20,6 @@ module.exports = {
         inline            : true,
         hot               : true,
         historyApiFallback: true,
-        process           : true,
     },
     module   : {
         rules: [
