@@ -100,9 +100,9 @@ module.exports = {
             filename: 'index.html',
             favicon : './public/favicon.ico'
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
         new extracttextplugin("asset/css/[hash].css"),
-        new manifestplugin('dist/manifest.json')
+        new manifestplugin('dist/manifest.json'),
+        new webpack.optimize.OccurrenceOrderPlugin(),
     ],
 };
