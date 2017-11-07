@@ -93,8 +93,8 @@ module.exports = {
         ]
     },
     plugins  : [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.BannerPlugin('版权所有，翻版必究'),
+        new webpack.HotModuleReplacementPlugin(),
         new htmlwebpackplugin({
             template: 'public/index.html',
             filename: 'index.html',
