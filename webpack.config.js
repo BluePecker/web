@@ -9,7 +9,7 @@ const htmlwebpackplugin = require('html-webpack-plugin');
 const manifestplugin = require('manifest-webpack-plugin');
 
 module.exports = {
-    entry    : __dirname + "/public/src/main.js",
+    entry    : __dirname + "/public/src/router.js",
     output   : {
         path    : __dirname + "/dist",
         filename: "asset/js/[hash].js",
@@ -29,7 +29,7 @@ module.exports = {
                     {
                         loader : 'babel-loader',
                         options: {
-                            'presets': ['latest', 'react'],
+                            'presets': ['react', 'es2015', 'stage-0'],
                         }
                     }
                 ],

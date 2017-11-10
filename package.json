@@ -3,17 +3,19 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "start": "webpack-dev-server --inline --hot",
-        "build": "webpack --display-error-details",
-        "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject"
+        "start": "webpack-dev-server",
+        "build": "webpack --display-error-details"
     },
     "dependencies": {
         "antd": "^2.13.8",
+        "console-polyfill": "^0.3.0",
+        "es5-shim": "^4.5.9",
         "immutable": "^3.8.2",
         "jquery": "^3.2.1",
         "react": "^15.6.2",
         "react-dom": "^15.6.2",
+        "react-router": "^4.2.0",
+        "react-router-dom": "^4.2.2",
         "react-scripts": "1.0.17"
     },
     "devDependencies": {
