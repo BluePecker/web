@@ -1,6 +1,6 @@
 {
-    "name": "Login",
+    "name": "Odd",
     "version": "0.0.0",
     "private": true,
-    "main": "./login.js"
+    "main": "./odd.js"
 }

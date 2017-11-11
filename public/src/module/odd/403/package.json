@@ -1,6 +1,6 @@
 {
-    "name": "Login",
+    "name": "403",
     "version": "0.0.0",
     "private": true,
-    "main": "./login.js"
+    "main": "./403.js"
 }
