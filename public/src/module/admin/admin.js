@@ -1,5 +1,3 @@
-import 'es5-shim';
-import 'console-polyfill';
 import 'antd/dist/antd.less';
 import React from 'react';
 import {Layout, Menu, Icon} from 'antd';
