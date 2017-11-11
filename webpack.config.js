@@ -11,12 +11,12 @@ const manifestplugin = require('manifest-webpack-plugin');
 module.exports = {
     entry    : __dirname + "/public/src/router.js",
     output   : {
-        path    : __dirname + "/dist",
+        path    : __dirname + "/build",
         filename: "asset/js/[hash].js",
     },
     devtool  : 'eval-source-map',
     devServer: {
-        contentBase       : "./dist",
+        contentBase       : "./build",
         inline            : true,
         hot               : true,
         historyApiFallback: true,
@@ -102,7 +102,7 @@ module.exports = {
         }),
         new webpack.optimize.UglifyJsPlugin(),
         new extracttextplugin("asset/css/[hash].css"),
-        new manifestplugin('dist/manifest.json'),
+        new manifestplugin('build/manifest.json'),
         new webpack.optimize.OccurrenceOrderPlugin(),
     ],
 };
