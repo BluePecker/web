@@ -3,7 +3,7 @@ import 'console-polyfill';
 import 'antd/dist/antd.less';
 import React from 'react';
 import {Layout, Menu, Icon} from 'antd';
-// import {Route, Link} from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 
 import './admin.less';
 
@@ -23,7 +23,7 @@ export default class Admin extends React.Component {
         this.setState({
             menuId: e.key
         });
-        console.log(this.state.menuId);
+        // console.log(this.state.menuId);
     };
 
     toggle = () => {
@@ -40,11 +40,10 @@ export default class Admin extends React.Component {
                     <div className="logo"/>
                     <Menu theme="dark" onClick={this.selectMenu} mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="login">
-                            <Icon type="user"/>
-                            <span>
-                                test
-                                {/*<Link to={"/login"}>nav 1</Link>*/}
-                            </span>
+                            <Link to={'test'}>
+                                <Icon type="user"/>
+                                <span>nav 1</span>
+                            </Link>
                         </Menu.Item>
                         <Menu.Item key="2">
                             <Icon type="video-camera"/>
@@ -61,7 +60,9 @@ export default class Admin extends React.Component {
                         <Icon className="trigger" type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} onClick={this.toggle}/>
                     </Header>
                     <Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
-                        {/*<Route path="test" component={Test1}/>*/}
+                        <div>
+                            <Route path="test" component={Test1}/>
+                        </div>
                         {this.props.children}
                         <div>sdfasfsdf</div>
                     </Content>

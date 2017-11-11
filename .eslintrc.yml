@@ -34,6 +34,7 @@ rules:
     react/jsx-no-target-blank: 0
     react/require-extension: 0
     react/self-closing-comp: 0
+    react/no-array-index-key: 0
     react/jsx-indent: [0, "tab"]
     react/jsx-tag-spacing: 0
     react/jsx-first-prop-new-line: [2, "multiline"]
