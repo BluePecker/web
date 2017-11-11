@@ -9,7 +9,7 @@ const htmlwebpackplugin = require('html-webpack-plugin');
 const manifestplugin = require('manifest-webpack-plugin');
 
 module.exports = {
-    entry    : __dirname + "/public/src/router.js",
+    entry    : __dirname + "/public/src/main.js",
     output   : {
         path    : __dirname + "/build",
         filename: "asset/js/[hash].js",
