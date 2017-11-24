@@ -39,6 +39,11 @@ export default class Admin extends React.Component {
         collapsed: false,
     };
 
+    constructor() {
+        super();
+        this.menus = NavConfig;
+    }
+
     getRouteItems(menus) {
         let fn = (data, parent = '') => {
             let routes = [];
@@ -116,40 +121,51 @@ export default class Admin extends React.Component {
         return title;
     }
 
+    getCurrentMenuSelectedKeys = (props) => {
+        const {location: {pathname}} = props || this.props;
+        const keys = pathname.split('/').slice(1);
+        if (keys.length === 1 && keys[0] === '') {
+            return [this.menus[0].path];
+        }
+        return keys;
+    };
+
     menuToggle = () => {
         this.setState({collapsed: !this.state.collapsed});
     };
 
     render() {
+        const layout = (
+            <Layout>
+                <Sider trigger={null} collapsed={this.state.collapsed}>
+                    <div className="logo"> React管理后台</div>
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={this.getCurrentMenuSelectedKeys()}>
+                        {this.getMenuItems(this.menus)}
+                    </Menu>
+                </Sider>
+                <Layout>
+                    <Header style={{background: '#fff', padding: 0}}>
+                        <Icon className="trigger" onClick={this.menuToggle} type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
+                    </Header>
+                    <Content style={{
+                        margin    : '24px 16px',
+                        padding   : 24,
+                        background: '#fff',
+                        minHeight : 700
+                    }}
+                    >
+                        {this.getRouteItems(this.menus)}
+                    </Content>
+                </Layout>
+            </Layout>
+        );
+
         return (
-            <DocumentTitle title={this.getPageTitle(NavConfig)}>
+            <DocumentTitle title={this.getPageTitle(this.menus)}>
                 <ContainerQuery query={query}>
                     {
                         params => (
-                            <div className={ClassNames(params)}>
-                                <Layout>
-                                    <Sider trigger={null} collapsed={this.state.collapsed}>
-                                        <div className="logo"> React管理后台 </div>
-                                        <Menu theme="dark" mode="inline" defaultSelectedKeys={['admin']}>
-                                            {this.getMenuItems(NavConfig)}
-                                        </Menu>
-                                    </Sider>
-                                    <Layout>
-                                        <Header style={{background: '#fff', padding: 0}}>
-                                            <Icon className="trigger" onClick={this.menuToggle} type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
-                                        </Header>
-                                        <Content style={{
-                                            margin    : '24px 16px',
-                                            padding   : 24,
-                                            background: '#fff',
-                                            minHeight : '700'
-                                        }}
-                                        >
-                                            {this.getRouteItems(NavConfig)}
-                                        </Content>
-                                    </Layout>
-                                </Layout>
-                            </div>
+                            <div className={ClassNames(params)}>{layout}</div>
                         )
                     }
                 </ContainerQuery>

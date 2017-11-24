@@ -1,0 +1,79 @@
+@import "~antd/lib/style/themes/default.less";
+
+.container {
+  width: 100%;
+  min-height: 100%;
+  background-size: 100%;
+  padding: 150px 0 144px 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #f0f2f5 no-repeat center;
+}
+
+.main {
+  width: 286px;
+  margin: 0 auto;
+  //min-height: calc(100vh);
+
+  .tabs {
+    padding: 0 2px;
+    margin: 0 -2px;
+    :global {
+      .ant-tabs-tab {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      .ant-input-affix-wrapper .ant-input:not(:first-child) {
+        padding-left: 34px;
+      }
+    }
+  }
+
+  :global {
+    .has-error:hover .ant-input:not(.ant-input-disabled) {
+      border-color: #f04134;
+    }
+
+    .ant-tabs .ant-tabs-bar {
+      border-bottom: 0;
+      margin-bottom: 24px;
+      text-align: center;
+      .ant-form-item {
+        margin-bottom: 24px;
+        .ant-form-explain {
+          position: absolute;
+        }
+      }
+    }
+  }
+}
+
+.inputIcon {
+  font-size: @font-size-base;
+  color: @disabled-color;
+}
+
+.getCaptcha {
+  display: block;
+  width: 100%;
+}
+
+.additional {
+  text-align: left;
+
+  .forgot {
+    float: right;
+  }
+
+  .submit {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  :global {
+    .ant-form-item-control {
+      line-height: 22px;
+    }
+  }
+}
