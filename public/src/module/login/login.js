@@ -36,6 +36,9 @@ export default class Login extends React.Component {
             <DocumentTitle title={"登录"}>
                 <div className={styles.container}>
                     <div className={styles.main}>
+                        <div className={styles.header}>
+
+                        </div>
                         <Form onSubmit={this.handleSubmit}>
                             <Tabs className={styles.tabs} defaultActiveKey="account" activeKey={this.state.type} onChange={this.onSwitch}>
                                 <Tabs.TabPane tab="账号登录" key="account">
@@ -100,7 +103,7 @@ export default class Login extends React.Component {
                             </Form.Item>
                         </Form>
                     </div>
-                    <Footer copyright={<div>Copyright <Icon type="copyright"/> 2017 蚂蚁金服体验技术部出品</div>}/>
+                    <Footer copyright={<div>Copyright <Icon type="copyright"/> 2017 大推手（成都）科技有限公司</div>}/>
                 </div>
             </DocumentTitle>
         );
