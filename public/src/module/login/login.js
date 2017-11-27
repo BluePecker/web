@@ -7,21 +7,82 @@ import styles from './login.less';
 
 export default class Login extends React.Component {
     state = {
-        type: 'account'
+        username: '',
+        mobile  : '',
+        password: '',
+        smsCode : '',
+
+        count    : 0,
+        ms       : 'success',
+        loginType: 'account',
+        autoLogin: true,
+
     };
 
-    onSwitch = key => {
-        this.setState({type: key});
+    tableOnSwitch = loginType => {
+        this.setState({loginType});
+    };
+
+    mobileOnChange = (e) => {
+        const {value} = e.target;
+        if (value === '') {
+            this.setState({
+                ms: 'success'
+            });
+        } else {
+            let reg, match = value;
+            switch (value.length) {
+            case 1:
+                reg = /^(1)$/;
+                break;
+            case 2:
+                reg = /^(13|14|15|17|18)$/;
+                break;
+            case 3:
+                reg = /^(13[0-9]|14[57]|15[012356789]|17[678]|18[0-9])$/;
+                break;
+            default:
+                match = match.substr(3, 8);
+                reg = /^[0-9]+$/;
+            }
+
+            reg.test(match) ? this.setState({
+                ms: 'success'
+            }) : this.setState({
+                ms: 'error'
+            });
+        }
+
+        this.setState({mobile: value});
+    };
+
+    smsCodeOnChange = (e) => {
+        const {value} = e.target;
+        if (value === '' || /^[0-9]+$/.test(value)) {
+            this.setState({smsCode: value});
+        }
+    };
+
+    onGetCaptcha = () => {
+        let count = 59;
+        this.setState({count});
+        this.interval = setInterval(() => {
+            count -= 1;
+            this.setState({count});
+            if (count === 0) {
+                clearInterval(this.interval);
+            }
+        }, 1000);
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const {type} = this.state;
-        this.props.form.validateFields({force: true},
+        const {loginType} = this.state;
+        this.proms.form.validateFields({force: true},
             (err, values) => {
                 if (!err) {
-                    this.props.dispatch({
-                        type   : `login/${type}Submit`,
+                    this.proms.dispatch({
+                        type   : `login/${loginType}Submit`,
                         payload: values,
                     });
                 }
@@ -30,7 +91,6 @@ export default class Login extends React.Component {
     };
 
     render() {
-        const count = 60;
 
         return (
             <DocumentTitle title={"登录"}>
@@ -40,15 +100,10 @@ export default class Login extends React.Component {
 
                         </div>
                         <Form onSubmit={this.handleSubmit}>
-                            <Tabs className={styles.tabs} defaultActiveKey="account" activeKey={this.state.type} onChange={this.onSwitch}>
+                            <Tabs className={styles.tabs} defaultActiveKey="account" activeKey={this.state.loginType} onChange={this.tableOnSwitch}>
                                 <Tabs.TabPane tab="账号登录" key="account">
-                                    <Form.Item
-                                        hasFeedback
-                                        validateStatus="error"
-                                        help="用户名格式错误"
-                                    >
+                                    <Form.Item>
                                         <Input
-                                            id="error"
                                             size="large"
                                             prefix={<Icon type="user" className={styles.inputIcon}/>}
                                             placeholder="用户名"
@@ -64,30 +119,40 @@ export default class Login extends React.Component {
                                     </Form.Item>
                                 </Tabs.TabPane>
                                 <Tabs.TabPane tab="快捷登录" key="mobile">
-                                    <Form.Item>
+                                    <Form.Item
+                                        hasFeedback={this.state.ms === "error"}
+                                        validateStatus={this.state.ms}
+                                        help={this.state.ms === "error" ? "手机号格式错误" : ""}
+                                    >
                                         <Input
                                             size="large"
                                             prefix={<Icon type="mobile" className={styles.inputIcon}/>}
                                             placeholder="手机号"
+                                            maxLength="11"
+                                            onChange={this.mobileOnChange}
+                                            value={this.state.mobile}
                                         />
                                     </Form.Item>
                                     <Form.Item>
                                         <Row gutter={8}>
-                                            <Col span={16}>
+                                            <Col span={15}>
                                                 <Input
                                                     size="large"
                                                     prefix={<Icon type="mail" className={styles.inputIcon}/>}
                                                     placeholder="验证码"
+                                                    maxLength="6"
+                                                    onChange={this.smsCodeOnChange}
+                                                    value={this.state.smsCode}
                                                 />
                                             </Col>
-                                            <Col span={8}>
+                                            <Col span={9}>
                                                 <Button
-                                                    disabled={count}
-                                                    className={styles.getCaptcha}
+                                                    disabled={this.state.count}
                                                     size="large"
                                                     onClick={this.onGetCaptcha}
+                                                    className={styles.getCaptcha}
                                                 >
-                                                    {count ? `${count} s` : '获取验证码'}
+                                                    {this.state.count ? `${this.state.count} s` : '获取验证码'}
                                                 </Button>
                                             </Col>
                                         </Row>
