@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Tabs, Input, Icon, Row, Col, Button, Checkbox} from 'antd';
+import {Form, Tabs, Input, Icon, Row, Col, Button, Checkbox, AutoComplete} from 'antd';
 import DocumentTitle from 'react-document-title';
 import Footer from './../../component/Footer';
 
@@ -17,10 +17,26 @@ export default class Login extends React.Component {
         loginType: 'account',
         autoLogin: true,
 
+        emailDataSource: []
     };
 
     tableOnSwitch = loginType => {
         this.setState({loginType});
+    };
+
+    usernameOnChange = (value) => {
+        this.setState({
+            username       : value,
+            emailDataSource: !value || value.indexOf('@') >= 0 ? [] : [
+                `${value}@gmail.com`,
+                `${value}@163.com`,
+                `${value}@qq.com`,
+            ],
+        });
+    };
+
+    usernameOnSelect = (value) => {
+        this.setState({username: value});
     };
 
     mobileOnChange = (e) => {
@@ -96,18 +112,25 @@ export default class Login extends React.Component {
             <DocumentTitle title={"登录"}>
                 <div className={styles.container}>
                     <div className={styles.main}>
-                        <div className={styles.header}>
-
-                        </div>
+                        <div className={styles.header}/>
                         <Form onSubmit={this.handleSubmit}>
                             <Tabs className={styles.tabs} defaultActiveKey="account" activeKey={this.state.loginType} onChange={this.tableOnSwitch}>
                                 <Tabs.TabPane tab="账号登录" key="account">
                                     <Form.Item>
-                                        <Input
-                                            size="large"
-                                            prefix={<Icon type="user" className={styles.inputIcon}/>}
-                                            placeholder="用户名"
-                                        />
+                                        <Input.Group compact style={{height: 32}}>
+                                            <AutoComplete
+                                                size="large"
+                                                dataSource={this.state.emailDataSource}
+                                                onChange={this.usernameOnChange}
+                                                onSelect={this.usernameOnSelect}
+                                            >
+                                                <Input
+                                                    prefix={<Icon type="user" className={styles.inputIcon}/>}
+                                                    placeholder="用户名"
+                                                    maxLength="24"
+                                                />
+                                            </AutoComplete>
+                                        </Input.Group>
                                     </Form.Item>
                                     <Form.Item>
                                         <Input
@@ -115,6 +138,7 @@ export default class Login extends React.Component {
                                             prefix={<Icon type="lock" className={styles.inputIcon}/>}
                                             type="password"
                                             placeholder="密码"
+                                            maxLength="16"
                                         />
                                     </Form.Item>
                                 </Tabs.TabPane>

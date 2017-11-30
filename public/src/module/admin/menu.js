@@ -1,16 +1,15 @@
 export default [
     {
         name     : '后台首页',
-        path     : 'admin',
+        path     : '/',
         icon     : 'home',
-        component: '',
+        component: ''
     },
     {
-        name     : '权限管理',
-        path     : 'auth',
-        icon     : 'safety',
-        component: '',
-        children : [
+        name    : '权限管理',
+        path    : 'auth',
+        icon    : 'safety',
+        children: [
             {
                 name     : '账号管理',
                 path     : 'action1',

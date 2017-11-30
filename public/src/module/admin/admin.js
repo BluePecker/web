@@ -1,6 +1,6 @@
 import 'antd/dist/antd.less';
 import React from 'react';
-import {Layout, Menu, Icon} from 'antd';
+import {Layout, Menu, Icon, Breadcrumb} from 'antd';
 import {Route, Link} from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import {ContainerQuery} from 'react-container-query';
@@ -9,7 +9,7 @@ import ClassNames from 'classnames';
 import './admin.less';
 import NavConfig from './menu';
 
-const {Header, Sider, Content} = Layout;
+const {Header, Sider} = Layout;
 const {SubMenu} = Menu;
 
 const query = {
@@ -39,9 +39,29 @@ export default class Admin extends React.Component {
         collapsed: false,
     };
 
-    constructor() {
+    constructor(props) {
         super();
         this.menus = NavConfig;
+        this.state = {
+            openKeys: this.getCurrentMenuSelectedKeys(props),
+        };
+        this.breadcrumbs = this.getBreadcrumbs(this.menus);
+    }
+
+    getBreadcrumbs(menus) {
+        let fn = (data, parent = '') => {
+            let breadcrumb = [];
+            (data || []).filter(item => item.component || item.children).forEach(item => {
+                item.path = `${parent}/${item.path || ''}`.replace(/\/+/g, '/');
+                breadcrumb.push(item, ...fn(item.children, item.path));
+            });
+            return breadcrumb;
+        };
+        let map = {};
+        fn(menus).forEach(item => {
+            map[item.path] = item.name;
+        });
+        return map;
     }
 
     getRouteItems(menus) {
@@ -134,12 +154,28 @@ export default class Admin extends React.Component {
         this.setState({collapsed: !this.state.collapsed});
     };
 
+    menuOpenChange = (openKeys) => {
+        const lastOpenKey = openKeys[openKeys.length - 1];
+        const isMainMenu = this.menus.some(
+            item => (item.key === lastOpenKey || item.path === lastOpenKey)
+        );
+        this.setState({
+            openKeys: isMainMenu ? [lastOpenKey] : [...openKeys],
+        });
+    };
+
     render() {
         const layout = (
             <Layout>
                 <Sider trigger={null} collapsed={this.state.collapsed}>
                     <div className="logo"> React管理后台</div>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={this.getCurrentMenuSelectedKeys()}>
+                    <Menu
+                        selectedKeys={this.getCurrentMenuSelectedKeys()}
+                        theme="dark"
+                        mode="inline"
+                        onOpenChange={this.menuOpenChange}
+                        openKeys={this.state.openKeys}
+                    >
                         {this.getMenuItems(this.menus)}
                     </Menu>
                 </Sider>
@@ -147,15 +183,20 @@ export default class Admin extends React.Component {
                     <Header style={{background: '#fff', padding: 0}}>
                         <Icon className="trigger" onClick={this.menuToggle} type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                     </Header>
-                    <Content style={{
-                        margin    : '24px 16px',
-                        padding   : 24,
-                        background: '#fff',
-                        minHeight : 700
-                    }}
-                    >
-                        {this.getRouteItems(this.menus)}
-                    </Content>
+                    <div style={{width: '100%', margin: '4px 16px'}}>
+                        <Breadcrumb separator="/">
+                            <Breadcrumb.Item>
+                                <Link to="/"><Icon type="home"/></Link>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                <Link to="/auth/action2">
+                                    <span>权限管理</span>
+                                </Link>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>账号管理</Breadcrumb.Item>
+                        </Breadcrumb>
+                    </div>
+                    {this.getRouteItems(this.menus)}
                 </Layout>
             </Layout>
         );
