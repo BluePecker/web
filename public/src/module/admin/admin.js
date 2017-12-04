@@ -1,6 +1,7 @@
 import 'antd/dist/antd.less';
 import React from 'react';
-import {Layout, Menu, Icon, Breadcrumb} from 'antd';
+import PropTypes from 'prop-types';
+import {Layout, Menu, Icon} from 'antd';
 import {Route, Link} from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import {ContainerQuery} from 'react-container-query';
@@ -39,27 +40,39 @@ export default class Admin extends React.Component {
         collapsed: false,
     };
 
+    //noinspection JSUnusedGlobalSymbols
+    static childContextTypes = {
+        location   : PropTypes.object,
+        breadcrumbs: PropTypes.object,
+    };
+
     constructor(props) {
         super();
         this.menus = NavConfig;
         this.state = {
             openKeys: this.getCurrentMenuSelectedKeys(props),
         };
-        this.breadcrumbs = this.getBreadcrumbs(this.menus);
+    }
+
+    //noinspection JSUnusedGlobalSymbols
+    getChildContext() {
+        const {location} = this.props;
+        const breadcrumbs = this.getBreadcrumbs(this.menus);
+        return {location, breadcrumbs};
     }
 
     getBreadcrumbs(menus) {
         let fn = (data, parent = '') => {
             let breadcrumb = [];
             (data || []).filter(item => item.component || item.children).forEach(item => {
-                item.path = `${parent}/${item.path || ''}`.replace(/\/+/g, '/');
-                breadcrumb.push(item, ...fn(item.children, item.path));
+                item.route = `${parent}/${item.path || ''}`.replace(/\/+/g, '/');
+                breadcrumb.push(item, ...fn(item.children, item.route));
             });
             return breadcrumb;
         };
         let map = {};
         fn(menus).forEach(item => {
-            map[item.path] = item.name;
+            map[item.route] = item.name;
         });
         return map;
     }
@@ -67,11 +80,11 @@ export default class Admin extends React.Component {
     getRouteItems(menus) {
         let fn = (data, parent = '') => {
             let routes = [];
-            (data || []).filter(item => item.children).forEach(item => {
+            (data || []).forEach(item => {
                 item.exact = true;
-                item.path = `${parent}/${item.path || ''}`.replace(/\/+/g, '/');
+                item.route = `${parent}/${item.path || ''}`.replace(/\/+/g, '/');
                 if (item.children && !item.component) {
-                    routes.push(...fn(item.children, item.path));
+                    routes.push(...fn(item.children, item.route));
                 } else {
                     item.exact = item.children && item.component ? false : item.exact;
                     routes.push(item);
@@ -79,9 +92,8 @@ export default class Admin extends React.Component {
             });
             return routes;
         };
-
         return fn(menus).map(item => (
-            <Route key={item.key} path={item.path} exact={item.exact} component={item.component}/>
+            <Route key={item.route} path={item.route} exact={item.exact} component={item.component}/>
         ));
     }
 
@@ -168,7 +180,8 @@ export default class Admin extends React.Component {
         const layout = (
             <Layout>
                 <Sider trigger={null} collapsed={this.state.collapsed}>
-                    <div className="logo"> React管理后台</div>
+                    <div className="logo">
+                    </div>
                     <Menu
                         selectedKeys={this.getCurrentMenuSelectedKeys()}
                         theme="dark"
@@ -179,23 +192,10 @@ export default class Admin extends React.Component {
                         {this.getMenuItems(this.menus)}
                     </Menu>
                 </Sider>
-                <Layout>
+                <Layout style={{background: '#f0f2f5'}}>
                     <Header style={{background: '#fff', padding: 0}}>
                         <Icon className="trigger" onClick={this.menuToggle} type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                     </Header>
-                    <div style={{width: '100%', margin: '4px 16px'}}>
-                        <Breadcrumb separator="/">
-                            <Breadcrumb.Item>
-                                <Link to="/"><Icon type="home"/></Link>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                <Link to="/auth/action2">
-                                    <span>权限管理</span>
-                                </Link>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>账号管理</Breadcrumb.Item>
-                        </Breadcrumb>
-                    </div>
                     {this.getRouteItems(this.menus)}
                 </Layout>
             </Layout>

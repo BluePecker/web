@@ -1,24 +1,28 @@
+import Home from './home';
+import Auth from './auth';
+
 export default [
     {
         name     : '后台首页',
         path     : '/',
         icon     : 'home',
-        component: ''
+        component: Home
     },
     {
-        name    : '权限管理',
-        path    : 'auth',
-        icon    : 'safety',
-        children: [
+        name     : '权限管理',
+        path     : 'safety',
+        icon     : 'safety',
+        component: Auth,
+        children : [
             {
                 name     : '账号管理',
-                path     : 'action1',
-                component: '',
+                path     : 'account',
+                component: Auth,
             },
             {
                 name     : '权限分配',
-                path     : 'action2',
-                component: '',
+                path     : 'auth',
+                component: Auth,
             }
         ]
     }
