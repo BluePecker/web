@@ -192,8 +192,8 @@ export default class Admin extends React.Component {
                         {this.getMenuItems(this.menus)}
                     </Menu>
                 </Sider>
-                <Layout style={{background: '#f0f2f5'}}>
-                    <Header style={{background: '#fff', padding: 0}}>
+                <Layout style={{background: '#f0f2f5', minHeight: 840}}>
+                    <Header style={{background: '#fff', padding: 0, boxShadow: '0 1px 4px rgba(0, 21, 41, .08)'}}>
                         <Icon className="trigger" onClick={this.menuToggle} type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}/>
                     </Header>
                     {this.getRouteItems(this.menus)}

@@ -60,7 +60,7 @@ export default class Container extends React.PureComponent {
         const {
             breadcrumbList, tabList, className, linkElement = 'a',
         } = this.props;
-        const clsString = classNames(styles.pageHeader, className);
+        const clsString = classNames(styles.header, className);
         let breadcrumb;
         if (routes && params) {
             breadcrumb = (
@@ -78,7 +78,7 @@ export default class Container extends React.PureComponent {
                 return (
                     <Breadcrumb.Item key={url}>
                         {React.createElement(
-                            index === pathSnippets.length - 1 ? 'span' : linkElement,
+                            (index === pathSnippets.length - 1) || index < 1 ? 'span' : linkElement,
                             {[linkElement === 'a' ? 'href' : 'to']: url},
                             breadcrumbs[url] ||
                             breadcrumbs[url.replace('/', '')] ||
@@ -88,11 +88,12 @@ export default class Container extends React.PureComponent {
                     </Breadcrumb.Item>
                 );
             });
+
             const breadcrumbItems = [(
                 <Breadcrumb.Item key="home">
-                    {React.createElement(linkElement, {
+                    {React.createElement(location.pathname === '/' ? 'span' : linkElement, {
                         [linkElement === 'a' ? 'href' : 'to']: '/',
-                    }, <Icon type="home" />)}
+                    }, <Icon type="home"/>)}
                 </Breadcrumb.Item>
             )].concat(extraBreadcrumbItems);
             breadcrumb = (

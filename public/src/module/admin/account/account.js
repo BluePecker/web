@@ -1,9 +1,10 @@
 import React from 'react';
-import {Table, Cascader, Pagination, Input} from 'antd';
+import {Table, Form, Col, Input, Cascader, DatePicker} from 'antd';
 import {Link} from 'react-router-dom';
 import Header from '../../../component/Header';
+import SearchForm from '../../../component/SearchForm';
 
-import styles from './auth.less';
+import styles from './account.less';
 
 const columns = [{
     title    : 'No.',
@@ -98,7 +99,40 @@ const options = [{
     }],
 }];
 
-export default class Auth extends React.Component {
+
+class AdvancedSearchForm extends SearchForm {
+    // To generate mock Form.Item
+    getFields() {
+        const {getFieldDecorator} = this.props.form;
+        return [
+            <Col span={8} key={'username'} style={{'block': 'none'}}>
+                <Form.Item label={`用户名`}>
+                    {getFieldDecorator(`用户名`)(
+                        <Input placeholder="用户名"/>
+                    )}
+                </Form.Item>
+            </Col>,
+            <Col span={8} key={'role'} style={{'block': 'none'}}>
+                <Form.Item label={`身份`}>
+                    {getFieldDecorator(`身份`)(
+                        <Cascader options={options} placeholder="请选择身份" showSearch/>
+                    )}
+                </Form.Item>
+            </Col>,
+            <Col span={8} key={'datetime'} style={{'block': 'none'}}>
+                <Form.Item label={`创建日期`}>
+                    {getFieldDecorator(`创建日期`)(
+                        <DatePicker/>
+                    )}
+                </Form.Item>
+            </Col>
+        ];
+    }
+}
+
+const Search = Form.create()(AdvancedSearchForm);
+
+export default class Account extends React.Component {
 
     constructor(props) {
         super();
@@ -109,16 +143,17 @@ export default class Auth extends React.Component {
         return (
             <div>
                 <Header {...this.props} linkElement={Link}/>
-                <div className={styles.content} style={{'height': '100%', background: '#fff'}}>
+                <div className={styles.content}>
                     <div style={{padding: '18px 0'}}>
-                        <Cascader
-                            options={options}
-                            placeholder="Please select"
-                            showSearch
-                            size="large"
-                        />
-                        <Input size="large" placeholder="large size"/>
-                        <Input size="large" placeholder="large size"/>
+                        <Search/>
+                        {/*<Cascader*/}
+                        {/*options={options}*/}
+                        {/*placeholder="Please select"*/}
+                        {/*showSearch*/}
+                        {/*size="large"*/}
+                        {/*/>*/}
+                        {/*<Input size="large" placeholder="large size"/>*/}
+                        {/*<Input size="large" placeholder="large size"/>*/}
                     </div>
                     <Table
                         columns={columns}
@@ -126,11 +161,8 @@ export default class Auth extends React.Component {
                         bordered={false}
                         size="middle"
                         scroll={{x: '130%', y: 640}}
-                        pagination={false}
+                        pagination={{defaultCurrent: 1, total: 500, showQuickJumper: true}}
                     />
-                    <div className={styles.content.pagination1}>
-                        <Pagination style={{float: 'right'}} showQuickJumper defaultCurrent={1} total={500}/>
-                    </div>
                 </div>
             </div>
         );

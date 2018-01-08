@@ -7,7 +7,7 @@ import styles from './home.less';
 export default ({...restProps}) => (
     <div>
         <Header {...restProps} linkElement={Link}/>
-        <div className={styles.content} style={{'min-height': '100%', background: '#fff'}}>
+        <div className={styles.content} style={{minHeight: '100%', background: '#fff'}}>
             Home
         </div>
     </div>

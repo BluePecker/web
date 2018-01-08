@@ -1,4 +1,5 @@
 import Home from './home';
+import Account from './account';
 import Auth from './auth';
 
 export default [
@@ -9,15 +10,14 @@ export default [
         component: Home
     },
     {
-        name     : '权限管理',
-        path     : 'safety',
-        icon     : 'safety',
-        component: Auth,
-        children : [
+        name    : '权限管理',
+        path    : 'safety',
+        icon    : 'safety',
+        children: [
             {
                 name     : '账号管理',
                 path     : 'account',
-                component: Auth,
+                component: Account,
             },
             {
                 name     : '权限分配',
