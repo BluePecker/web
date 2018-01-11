@@ -1,22 +1,14 @@
 import * as Redux from 'redux';
 
-class Model {
-    reducers = {};
-
-    constructor() {
-        const dirs = require.context('./', true, /\/$/).keys();
-        dirs.forEach(item => {
-            item = item.substring(0, item.length - 1);
-            const namespace = item.substring(2).replace(/\//g, '_');
-            this.reducers[namespace] = require(`${item}`).default;
-        });
-    }
-
-    getReducers() {
-        return this.reducers;
-    }
-}
-
-const reducers = Redux.combineReducers((new Model()).getReducers());
+const reducers = Redux.combineReducers((() => {
+    const reducerMap = {};
+    const reducers = require.context('./', true, /\/reducer\.js$/).keys();
+    reducers.forEach(reducer => {
+        const item = reducer.replace(/\/reducer\.js$/, '');
+        const namespace = item.substring(2).replace(/\//g, '_');
+        reducerMap[namespace] = require(`${reducer}`).default;
+    });
+    return reducerMap;
+})());
 
 export default Redux.createStore(reducers);

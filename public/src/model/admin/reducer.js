@@ -1,6 +1,6 @@
 //noinspection JSUnusedGlobalSymbols
 export default (state = {
-    username: 'xxxx',
+    username: '舒超',
 }, action) => {
     switch (action.type) {
     case 'change':

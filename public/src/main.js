@@ -5,12 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
-import Model from './model/model';
-import Module from './module/module';
-
-Model.subscribe(() => {
-    console.log(Model.getState());
-});
+import Model from './model';
+import Module from './module';
 
 ReactDOM.render(
     <Provider store={Model}>

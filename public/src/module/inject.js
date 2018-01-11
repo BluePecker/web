@@ -21,7 +21,7 @@ export default (config = {}) => {
         // todo 添加一些勾子 componentDidMount...
     }
 
-    Container.defaultProps = Object.assign({setting}, {state: {username: 'xxx'}});
+    Container.defaultProps = {setting};
 
     return connect((state, props) => {
         return Object.assign({}, {props}, {
