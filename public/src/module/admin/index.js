@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
+
+import Inject from '../inject';
 
 class Admin extends React.Component {
 
@@ -14,6 +15,4 @@ class Admin extends React.Component {
     }
 }
 
-export default connect((state) => {
-    return {state: state.test};
-})(Admin);
+export default Inject({namespace: 'admin', component: Admin});

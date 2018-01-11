@@ -1,21 +1,22 @@
 import * as Redux from 'redux';
 
-const reducers = Redux.combineReducers({
-    test  : (state = {}, action) => {
-        console.log('test', state, action);
-        state.username = action.username;
-        return Object.assign({}, state);
-    },
-    test1 : (state = {}, action) => {
-        console.log("test1", state, action);
-        state.username = action.username;
-        return Object.assign({}, state);
-    },
-    change: (state = {}, action) => {
-        console.log("test1", state, action);
-        state.username = action.username;
-        return Object.assign({}, state);
-    },
-});
+class Model {
+    reducers = {};
+
+    constructor() {
+        const dirs = require.context('./', true, /\/$/).keys();
+        dirs.forEach(item => {
+            item = item.substring(0, item.length - 1);
+            const namespace = item.substring(2).replace(/\//g, '_');
+            this.reducers[namespace] = require(`${item}`).default;
+        });
+    }
+
+    getReducers() {
+        return this.reducers;
+    }
+}
+
+const reducers = Redux.combineReducers((new Model()).getReducers());
 
 export default Redux.createStore(reducers);
