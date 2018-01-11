@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-
 export default (config = {}) => {
     let setting = {
         namespace: '',
@@ -27,5 +26,15 @@ export default (config = {}) => {
         return Object.assign({}, {props}, {
             state: setting.namespace ? state[setting.namespace] : state
         });
+    }, dispatch => {
+        //noinspection JSUnusedGlobalSymbols
+        return {
+            dispatch: (action, payload, global = false) => {
+                dispatch({
+                    type: global ? action : [setting.namespace, action].join('/'),
+                    ...payload
+                });
+            },
+        };
     })(Container);
 };

@@ -9,7 +9,7 @@ class Admin extends React.Component {
         return (
             <div>
                 <span>{state.username}</span>
-                <button onClick={() => dispatch({type: 'change', username: 'Shuc324@gmail.com'})}>改变名字</button>
+                <button onClick={() => dispatch('change', {username: 'Shuc324@gmail.com'})}>改变名字</button>
             </div>
         );
     }
