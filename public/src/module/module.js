@@ -6,6 +6,8 @@ import {Switch, Route, HashRouter as Router} from 'react-router-dom';
 
 import Admin from './admin';
 
+import './module.less';
+
 class Module extends React.Component {
 
     render() {
