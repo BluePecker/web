@@ -46,6 +46,10 @@ class Admin extends React.Component {
         return traverse(menu)[unique] || '管理后台';
     }
 
+    builderMenu(menu) {
+
+    }
+
     render() {
         const {dispatch, state} = this.props;
 
@@ -58,7 +62,15 @@ class Admin extends React.Component {
                     width={256}
                     style={ClassNames(style.sider)}
                 >
-
+                    <Menu
+                        // selectedKeys={this.getCurrentMenuSelectedKeys()}
+                        theme="dark"
+                        mode="inline"
+                        // onOpenChange={this.menuOpenChange}
+                        // openKeys={this.state.openKeys}
+                    >
+                        {this.builderMenu(state.menu || {})}
+                    </Menu>
 
 
                 </Sider>
