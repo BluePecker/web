@@ -1,8 +1,9 @@
 import React from 'react';
 import ClassNames from 'classnames';
-import {Layout, Menu, Icon, Avatar, Dropdown, Tag, message, Spin} from 'antd';
+import {Layout, Menu, Icon} from 'antd';
 import {ContainerQuery} from 'react-container-query';
 import DocumentTitle from 'react-document-title';
+import {Link} from 'react-router-dom';
 
 import Inject from '../inject';
 
@@ -33,7 +34,7 @@ const {Sider, Header, Content} = Layout;
 
 class Admin extends React.Component {
 
-    getPageTitle(menu) {
+    titleBuilder(menu) {
         const {location} = this.props;
         let unique = location.pathname.split('/').slice(0, 3).join('/');
         const traverse = (menu, father = '', map = {}) => {
@@ -46,8 +47,44 @@ class Admin extends React.Component {
         return traverse(menu)[unique] || '管理后台';
     }
 
-    builderMenu(menu) {
-
+    menuBuilder(menu, prefix = '') {
+        const {location} = this.props;
+        return Object.keys(menu).map(key => {
+            const route = `${prefix}/${key}`;
+            if (typeof menu[key].children !== 'object') {
+                return (
+                    <Menu.Item key={route}>
+                        <Link
+                            replace={route === location.pathname}
+                            to={route}
+                        >
+                            {
+                                menu[key].icon ? (<span>
+                                    <Icon type={menu[key].icon}/>
+                                    <span>{menu[key].name}</span>
+                                </span>) : <span>{menu[key].name}</span>
+                            }
+                        </Link>
+                    </Menu.Item>
+                );
+            } else {
+                return (
+                    <Menu.SubMenu
+                        title={
+                            menu[key].icon ? (
+                                <span>
+                                    <Icon type={menu[key].icon}/>
+                                    <span>{menu[key].name}</span>
+                                </span>
+                            ) : <span>{menu[key].name}</span>
+                        }
+                        key={route}
+                    >
+                        {this.menuBuilder(menu[key].children, route)}
+                    </Menu.SubMenu>
+                );
+            }
+        });
     }
 
     render() {
@@ -69,7 +106,7 @@ class Admin extends React.Component {
                         // onOpenChange={this.menuOpenChange}
                         // openKeys={this.state.openKeys}
                     >
-                        {this.builderMenu(state.menu || {})}
+                        {this.menuBuilder(state.menu || {})}
                     </Menu>
 
 
@@ -88,9 +125,8 @@ class Admin extends React.Component {
             </Layout>
         );
 
-
         return (
-            <DocumentTitle title={this.getPageTitle(state.menu || {})}>
+            <DocumentTitle title={this.titleBuilder(state.menu || {})}>
                 <ContainerQuery query={query}>
                     {params => <div className={ClassNames(params)}>{layout}</div>}
                 </ContainerQuery>

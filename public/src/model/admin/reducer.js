@@ -13,7 +13,7 @@ export default (state = {
         },
         secure: {
             name    : '安全中心',
-            icon    : 'secure',
+            icon    : 'safety',
             children: {
                 account  : {
                     name: '账号管理',

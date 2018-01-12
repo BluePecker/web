@@ -1,6 +1,3 @@
-import 'es5-shim';
-import 'console-polyfill';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
