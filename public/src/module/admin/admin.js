@@ -111,7 +111,7 @@ class Admin extends React.Component {
         });
     };
 
-    handleMenuToggle = () => {
+    handleToggle = () => {
         const {dispatch} = this.props;
         dispatch('collapsed');
     };
@@ -122,12 +122,12 @@ class Admin extends React.Component {
         const layout = (
             <Layout>
                 <Sider
-                    trigger={null}
                     collapsible
                     collapsed={state.collapsed}
                     breakpoint="md"
                     width={256}
-                    style={style.sider}
+                    trigger={null}
+                    className={ClassNames(style.sider)}
                 >
                     <Menu
                         selectedKeys={this.selectedMenuKeys(state.menu || {})}
@@ -145,7 +145,7 @@ class Admin extends React.Component {
                         <Icon
                             className={ClassNames(style.trigger)}
                             type={state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.handleMenuToggle}
+                            onClick={this.handleToggle}
                         />
                     </Header>
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
