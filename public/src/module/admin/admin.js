@@ -47,7 +47,7 @@ class Admin extends React.Component {
             });
             return map;
         };
-        return traverse(menu)[unique] || '管理后台';
+        return `${traverse(menu)[unique] || '管理后台'}-Bamboo`;
     }
 
     getNavMenuItems(menu, prefix = '') {
