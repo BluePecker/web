@@ -47,7 +47,7 @@ class Admin extends React.Component {
         return traverse(menu)[unique] || '管理后台';
     }
 
-    menuBuilder(menu, prefix = '') {
+    getNavMenuItems(menu, prefix = '') {
         const {location} = this.props;
         return Object.keys(menu).map(key => {
             const route = `${prefix}/${key}`;
@@ -80,12 +80,33 @@ class Admin extends React.Component {
                         }
                         key={route}
                     >
-                        {this.menuBuilder(menu[key].children, route)}
+                        {this.getNavMenuItems(menu[key].children, route)}
                     </Menu.SubMenu>
                 );
             }
         });
     }
+
+    selectedMenuKeys(menu) {
+        const {location} = this.props;
+        const {pathname} = location;
+        const route = pathname.replace(/\/$/, '');
+        const defaultItem = `/${Object.keys(menu)[0] || ''}`;
+        route.replace(/^\//, '').split('/').map(item => {
+            menu = menu[item] ? (menu[item].children || menu[item]) : {};
+        });
+        return Object.keys(menu).length ? [route] : [defaultItem];
+    }
+
+    handleOpenChange = keys => {
+        const {dispatch} = this.props;
+        dispatch('menu_change', {keys: keys.length ? [keys[keys.length - 1]] : []});
+    };
+
+    handleMenuToggle = () => {
+        const {dispatch} = this.props;
+        dispatch('collapsed');
+    };
 
     render() {
         const {dispatch, state} = this.props;
@@ -95,25 +116,29 @@ class Admin extends React.Component {
                 <Sider
                     trigger={null}
                     collapsible
+                    collapsed={state.collapsed}
                     breakpoint="md"
                     width={256}
-                    style={ClassNames(style.sider)}
+                    style={style.sider}
                 >
                     <Menu
-                        // selectedKeys={this.getCurrentMenuSelectedKeys()}
+                        selectedKeys={this.selectedMenuKeys(state.menu || {})}
                         theme="dark"
                         mode="inline"
-                        // onOpenChange={this.menuOpenChange}
-                        // openKeys={this.state.openKeys}
+                        onOpenChange={this.handleOpenChange}
+                        {...state.menu_open_keys}
+                        openKeys={state.menu_open_keys}
                     >
-                        {this.menuBuilder(state.menu || {})}
+                        {this.getNavMenuItems(state.menu || {})}
                     </Menu>
-
-
                 </Sider>
                 <Layout>
-                    <Header>
-
+                    <Header className={ClassNames(style.header)} style={{background: '#fff'}}>
+                        <Icon
+                            className={ClassNames(style.trigger)}
+                            type={state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                            onClick={this.handleMenuToggle}
+                        />
                     </Header>
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
                         <div>
