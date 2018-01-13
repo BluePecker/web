@@ -1,3 +1,6 @@
+/**
+ * @typedef {{Component:class}} React
+ */
 import React from 'react';
 import {connect} from 'react-redux';
 

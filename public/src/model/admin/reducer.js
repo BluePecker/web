@@ -12,8 +12,22 @@ export default (state = {
                 dashboard: {
                     name: '数据总览',
                     icon: 'dashboard',
+                },
+                area     : {
+                    name    : '地区数据',
+                    icon    : 'global',
+                    children: {
+                        beijing: {
+                            name: '北京',
+                            icon: 'cloud',
+                        },
+                        chengdu: {
+                            name: '成都',
+                            icon: 'cloud',
+                        },
+                    }
                 }
-            }
+            },
         },
         secure  : {
             name    : '安全中心',

@@ -39,7 +39,7 @@ class Admin extends React.Component {
 
     titleBuilder(menu) {
         const {location} = this.props;
-        let unique = location.pathname.split('/').slice(0, 3).join('/');
+        let unique = location.pathname.split('/').join('/');
         const traverse = (menu, father = '', map = {}) => {
             Object.keys(menu).forEach(route => {
                 let unique = `${father}/${route}`;
@@ -102,8 +102,13 @@ class Admin extends React.Component {
     }
 
     handleOpenChange = keys => {
+        let route = '';
         const {dispatch} = this.props;
-        dispatch('menu_change', {keys: keys.length ? [keys[keys.length - 1]] : []});
+        dispatch('menu_change', {
+            keys: keys.length ? keys[keys.length - 1].replace(/(^\/|\/$)/, '').split('/').map(item => {
+                return route = `${route}/${item}`;
+            }) : []
+        });
     };
 
     handleMenuToggle = () => {
