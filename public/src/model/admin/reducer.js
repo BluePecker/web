@@ -32,12 +32,8 @@ export default (state = {
     },
     menu_open_keys: [],
     collapsed     : false,
-    username      : '舒超',
 }, action) => {
     switch (action.type) {
-    case 'admin/change':
-        state.username = action.username;
-        return Object.assign({}, state);
     case 'admin/menu_change':
         state.menu_open_keys = action.keys;
         return Object.assign({}, state);

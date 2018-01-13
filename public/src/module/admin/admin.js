@@ -1,3 +1,6 @@
+/**
+ * @typedef {{Component:class}} React
+ */
 import React from 'react';
 import ClassNames from 'classnames';
 import {Layout, Menu, Icon} from 'antd';
@@ -109,7 +112,7 @@ class Admin extends React.Component {
     };
 
     render() {
-        const {dispatch, state} = this.props;
+        const {state} = this.props;
 
         const layout = (
             <Layout>
@@ -133,7 +136,7 @@ class Admin extends React.Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header className={ClassNames(style.header)} style={{background: '#fff'}}>
+                    <Header className={ClassNames(style.header)}>
                         <Icon
                             className={ClassNames(style.trigger)}
                             type={state.collapsed ? 'menu-unfold' : 'menu-fold'}
@@ -141,10 +144,7 @@ class Admin extends React.Component {
                         />
                     </Header>
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
-                        <div>
-                            <span>{state.username}</span>
-                            <button onClick={() => dispatch('change', {username: 'Shuc324@gmail.com'})}>改变名字</button>
-                        </div>
+
                     </Content>
                 </Layout>
             </Layout>

@@ -1,6 +1,9 @@
 import 'es5-shim';
 import 'console-polyfill';
 
+/**
+ * @typedef {{Component:class}} React
+ */
 import React from 'react';
 import {Switch, Route, HashRouter as Router} from 'react-router-dom';
 
