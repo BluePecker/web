@@ -16,6 +16,7 @@ import Logo from '../../assets/logo.svg';
 import Avatar from '../../assets/avatar.png';
 import Slider from '../../component/Slider';
 import Header from '../../component/Header';
+import Footer from '../../component/Footer';
 
 const query = {
     'screen-xs': {
@@ -167,6 +168,29 @@ class Admin extends React.Component {
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
 
                     </Content>
+                    <Footer
+                        links={[{
+                            key        : 'Pro 首页',
+                            title      : 'Pro 首页',
+                            href       : 'http://pro.ant.design',
+                            blankTarget: true,
+                        }, {
+                            key        : 'github',
+                            title      : <Icon type="github"/>,
+                            href       : 'https://github.com/ant-design/ant-design-pro',
+                            blankTarget: true,
+                        }, {
+                            key        : 'Ant Design',
+                            title      : 'Ant Design',
+                            href       : 'http://ant.design',
+                            blankTarget: true,
+                        }]}
+                        copyright={
+                            <div>
+                                Copyright <Icon type="copyright"/> 2018 蚂蚁金服体验技术部出品
+                            </div>
+                        }
+                    />
                 </Layout>
             </Layout>
         );
