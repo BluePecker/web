@@ -9,7 +9,7 @@ import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
 import "antd/dist/antd.less";
-import "antd/lib/style/themes/default.less";
+// import "antd/lib/style/themes/default.less";
 
 import Inject from '../inject';
 
@@ -137,6 +137,7 @@ class Admin extends React.Component {
                     metadata={menu}
                     openKeys={openKeys}
                     {...this.props}
+                    logo={Logo}
                     onCollapse={this.handleCollapse}
                 />
                 <Layout>

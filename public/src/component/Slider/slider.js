@@ -2,16 +2,19 @@ import 'rc-drawer-menu/assets/index.css';
 import React from 'react';
 import DrawerMenu from 'rc-drawer-menu';
 import {Layout} from 'antd';
+import {Link} from 'react-router-dom';
+import ClassNames from 'classnames';
+
 import Menu from './menu';
 
 import slider from './slider.less';
 
 export default props => {
-    const {mobile, onCollapse, collapsed} = props;
+    const {mobile, onCollapse, collapsed, logo} = props;
 
     const Slider = (
         <Layout.Sider
-            className={slider.sider}
+            className={ClassNames(slider.sider)}
             trigger={null}
             collapsible
             breakpoint="md"
@@ -19,6 +22,12 @@ export default props => {
             width={256}
             collapsed={mobile ? false : collapsed}
         >
+            <div className={ClassNames(slider.logo)} key="logo">
+                <Link to="/">
+                    <img src={logo} alt="logo" />
+                    <h1>Bamboo管理后台</h1>
+                </Link>
+            </div>
             <Menu {...props}/>
         </Layout.Sider>
     );
