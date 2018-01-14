@@ -1,3 +1,10 @@
+import {enquireScreen as EnquireScreen} from 'enquire-js';
+
+let isMobile;
+EnquireScreen((bool) => {
+    isMobile = bool;
+});
+
 //noinspection JSUnusedGlobalSymbols
 export default (state = {
     menu     : {
@@ -46,6 +53,7 @@ export default (state = {
     },
     openKeys : [],
     collapsed: false,
+    isMobile : isMobile,
 }, action) => {
     switch (action.type) {
     case 'admin/onChange':

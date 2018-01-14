@@ -1,6 +1,5 @@
 import 'es5-shim';
 import 'console-polyfill';
-
 /**
  * @typedef {{Component:class}} React
  */
