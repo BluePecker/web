@@ -9,11 +9,11 @@ import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
 import "antd/dist/antd.less";
-// import "antd/lib/style/themes/default.less";
 
 import Inject from '../inject';
 
 import Logo from '../../assets/logo.svg';
+import Avatar from '../../assets/avatar.png';
 import Slider from '../../component/Slider';
 import Header from '../../component/Header';
 
@@ -160,7 +160,7 @@ class Admin extends React.Component {
                         collapsed={collapsed}
                         user={{
                             username: 'shuc324@gmail.com',
-                            avatar  : 'https://avatars3.githubusercontent.com/u/28583275?s=400&u=f466486a2ba5a8012c97c6d44d74f38eafdd7fdd&v=4'
+                            avatar  : Avatar
                         }}
                     >
                     </Header>
