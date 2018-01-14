@@ -13,7 +13,9 @@ import "antd/lib/style/themes/default.less";
 
 import Inject from '../inject';
 
+import Logo from '../../assets/logo.svg';
 import Slider from '../../component/Slider';
+import Header from '../../component/Header';
 
 const query = {
     'screen-xs': {
@@ -36,7 +38,7 @@ const query = {
     },
 };
 
-const {Header, Content} = Layout;
+const {Content} = Layout;
 
 class Admin extends React.Component {
 
@@ -124,40 +126,27 @@ class Admin extends React.Component {
 
     render() {
         const {state} = this.props;
+        const {collapsed, menu, openKeys, isMobile} = state;
 
         const layout = (
             <Layout>
                 <Slider
-                    collapsed={state.collapsed}
-                    metadata={state.menu}
-                    openKeys={state.openKeys}
-                    {...this.props}
                     handleChange={this.handleChange}
-                    mobile={state.isMobile}
+                    mobile={isMobile}
+                    collapsed={collapsed}
+                    metadata={menu}
+                    openKeys={openKeys}
+                    {...this.props}
                     onCollapse={this.handleCollapse}
                 />
                 <Layout>
                     <Header
-                        style={{
-                            padding   : '0 12px 0 0',
-                            background: '#fff',
-                            boxShadow : '0 1px 4px rgba(0, 21, 41, .08)',
-                            position  : 'relative',
-                        }}
+                        isMobile={isMobile}
+                        logo={Logo}
+                        onToggle={this.handleToggle}
+                        collapsed={collapsed}
                     >
-                        <Icon
-                            type={state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.handleToggle}
-                            style={{
-                                fontSize  : '20px',
-                                lineHeight: '64px',
-                                cursor    : 'pointer',
-                                transition: 'all .3s',
-                                padding   : '0 24px',
-                            }}
-                        />
                     </Header>
-
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
 
                     </Content>

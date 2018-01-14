@@ -1,0 +1,55 @@
+@import "~antd/lib/style/themes/default.less";
+
+.header {
+  padding: 0 12px 0 0;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  position: relative;
+}
+
+.logo {
+  height: 64px;
+  line-height: 58px;
+  vertical-align: top;
+  display: inline-block;
+  padding: 0 0 0 24px;
+  cursor: pointer;
+  font-size: 20px;
+  img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+:global {
+  .ant-layout {
+    overflow-x: hidden;
+  }
+}
+
+i.trigger {
+  font-size: 20px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: all .3s, padding 0s;
+  padding: 0 24px;
+  &:hover {
+    background: @primary-1;
+  }
+}
+
+@media only screen and (max-width: @screen-md) {
+  .header {
+    :global(.ant-divider-vertical) {
+      vertical-align: unset;
+    }
+    i.trigger {
+      padding: 0 12px;
+    }
+    .logo {
+      padding-right: 12px;
+      position: relative;
+      background-color: transparent;
+    }
+  }
+}
