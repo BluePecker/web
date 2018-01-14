@@ -55,11 +55,13 @@ export default class SliderMenu extends React.Component {
         route.replace(/^\//, '').split('/').map(item => {
             menu = menu[item] ? (menu[item].children || menu[item]) : {};
         });
+
         return Object.keys(menu).length ? [route] : [defaultItem];
     }
 
     render() {
         const {metadata, openKeys, handleChange, collapsed} = this.props;
+
         return (
             <Menu
                 onOpenChange={handleChange}

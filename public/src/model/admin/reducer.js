@@ -66,9 +66,9 @@ export default (state = {
     isMobile : isMobile,
 }, action) => {
     switch (action.type) {
-    case 'admin/onChange':
+    case 'admin/expand':
         return Object.assign({}, state, {
-            openKeys: action.keys
+            openKeys: action.openKeys
         });
     case 'admin/collapsed':
         return Object.assign({}, state, {

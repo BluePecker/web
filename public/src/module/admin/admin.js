@@ -95,14 +95,24 @@ class Admin extends React.Component {
         });
     }
 
-    handleChange = keys => {
-        let route = '';
-        const {dispatch} = this.props;
-        dispatch('onChange', {
-            keys: keys && keys.length ? keys[keys.length - 1].replace(/(^\/|\/$)/, '').split('/').map(item => {
-                return route = `${route}/${item}`;
-            }) : []
+    routes(route) {
+        let str = '';
+        return route.replace(/(^\/|\/$)/, '').split('/').map(item => {
+            return str = `${str}/${item}`;
         });
+    }
+
+    handleChange = keys => {
+        const {dispatch} = this.props;
+        dispatch('expand', {
+            openKeys: keys && keys.length ? this.routes(keys[keys.length - 1]) : []
+        });
+    };
+
+    handleExpand = () => {
+        const {dispatch, location} = this.props;
+        const {pathname} = location;
+        dispatch('expand', {openKeys: this.routes(pathname)});
     };
 
     handleToggle = () => {
@@ -122,6 +132,8 @@ class Admin extends React.Component {
         EnquireScreen((bool) => {
             dispatch('isMobile', {isMobile: bool});
         });
+        // 初始化该展开的菜单
+        this.handleExpand();
     }
 
     render() {
