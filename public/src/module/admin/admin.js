@@ -116,10 +116,10 @@ class Admin extends React.Component {
     };
 
     handleToggle = () => {
-        const {dispatch} = this.props;
+        const {dispatch, state: {collapsed}} = this.props;
         dispatch('collapsed');
         // 临时修复bug
-        this.handleChange();
+        collapsed ? this.handleExpand() : this.handleChange();
     };
 
     handleCollapse = () => {

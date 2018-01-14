@@ -52,11 +52,14 @@ export default class SliderMenu extends React.Component {
         const {pathname} = location;
         const route = pathname.replace(/\/$/, '');
         const defaultItem = `/${Object.keys(menu)[0] || ''}`;
-        route.replace(/^\//, '').split('/').map(item => {
+        const routes = route.replace(/^\//, '').split('/');
+        routes.map(item => {
             menu = menu[item] ? (menu[item].children || menu[item]) : {};
         });
-
-        return Object.keys(menu).length ? [route] : [defaultItem];
+        let str = '';
+        return Object.keys(menu).length ? routes.map(item => {
+            return str = `${str}/${item}`;
+        }) : [defaultItem];
     }
 
     render() {
@@ -67,9 +70,9 @@ export default class SliderMenu extends React.Component {
                 onOpenChange={handleChange}
                 theme="dark"
                 mode="inline"
-                {...(collapsed ? {} : {openKeys: openKeys})}
-                openKeys={openKeys}
                 selectedKeys={this.selectedKeys(metadata)}
+                {...(collapsed ? {} : {openKeys: openKeys})}
+                style={{padding: '16px 0', width: '100%'}}
             >
                 {this.getNavMenuItems(metadata || {})}
             </Menu>
