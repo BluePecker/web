@@ -8,10 +8,10 @@ import {ContainerQuery} from 'react-container-query';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
+import "antd/dist/antd.less";
+import "antd/lib/style/themes/default.less";
 
 import Inject from '../inject';
-
-import style from './admin.less';
 
 import Slider from '../../component/Slider';
 
@@ -93,22 +93,11 @@ class Admin extends React.Component {
         });
     }
 
-    selectedMenuKeys(menu) {
-        const {location} = this.props;
-        const {pathname} = location;
-        const route = pathname.replace(/\/$/, '');
-        const defaultItem = `/${Object.keys(menu)[0] || ''}`;
-        route.replace(/^\//, '').split('/').map(item => {
-            menu = menu[item] ? (menu[item].children || menu[item]) : {};
-        });
-        return Object.keys(menu).length ? [route] : [defaultItem];
-    }
-
     handleChange = keys => {
         let route = '';
         const {dispatch} = this.props;
         dispatch('onChange', {
-            keys: keys.length ? keys[keys.length - 1].replace(/(^\/|\/$)/, '').split('/').map(item => {
+            keys: keys && keys.length ? keys[keys.length - 1].replace(/(^\/|\/$)/, '').split('/').map(item => {
                 return route = `${route}/${item}`;
             }) : []
         });
@@ -117,6 +106,8 @@ class Admin extends React.Component {
     handleToggle = () => {
         const {dispatch} = this.props;
         dispatch('collapsed');
+        // 临时修复bug
+        this.handleChange();
     };
 
     handleCollapse = () => {
@@ -145,33 +136,28 @@ class Admin extends React.Component {
                     mobile={state.isMobile}
                     onCollapse={this.handleCollapse}
                 />
-                {/*<Sider*/}
-                {/*collapsible*/}
-                {/*collapsed={state.collapsed}*/}
-                {/*breakpoint="md"*/}
-                {/*width={256}*/}
-                {/*trigger={null}*/}
-                {/*className={ClassNames(style.sider)}*/}
-                {/*>*/}
-                {/*<Menu*/}
-                {/*selectedKeys={this.selectedMenuKeys(state.menu || {})}*/}
-                {/*theme="dark"*/}
-                {/*mode="inline"*/}
-                {/*onOpenChange={this.handleOpenChange}*/}
-                {/*{...state.menu_open_keys}*/}
-                {/*openKeys={state.menu_open_keys}*/}
-                {/*>*/}
-                {/*{this.getNavMenuItems(state.menu || {})}*/}
-                {/*</Menu>*/}
-                {/*</Sider>*/}
                 <Layout>
-                    <Header className={ClassNames(style.header)}>
+                    <Header
+                        style={{
+                            padding   : '0 12px 0 0',
+                            background: '#fff',
+                            boxShadow : '0 1px 4px rgba(0, 21, 41, .08)',
+                            position  : 'relative',
+                        }}
+                    >
                         <Icon
-                            className={ClassNames(style.trigger)}
                             type={state.collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.handleToggle}
+                            style={{
+                                fontSize  : '20px',
+                                lineHeight: '64px',
+                                cursor    : 'pointer',
+                                transition: 'all .3s',
+                                padding   : '0 24px',
+                            }}
                         />
                     </Header>
+
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
 
                     </Content>
