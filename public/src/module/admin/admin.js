@@ -146,6 +146,10 @@ class Admin extends React.Component {
                         logo={Logo}
                         onToggle={this.handleToggle}
                         collapsed={collapsed}
+                        user={{
+                            username: 'shuc324@gmail.com',
+                            avatar  : 'https://avatars3.githubusercontent.com/u/28583275?s=400&u=f466486a2ba5a8012c97c6d44d74f38eafdd7fdd&v=4'
+                        }}
                     >
                     </Header>
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
