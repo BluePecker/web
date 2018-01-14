@@ -7,6 +7,7 @@ import {Layout, Menu, Icon} from 'antd';
 import {ContainerQuery} from 'react-container-query';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
+import {enquireScreen as EnquireScreen} from 'enquire-js';
 import "antd/dist/antd.less";
 import "antd/lib/style/themes/default.less";
 
@@ -113,6 +114,13 @@ class Admin extends React.Component {
         const {dispatch} = this.props;
         dispatch('collapsed');
     };
+
+    componentDidMount() {
+        const {dispatch} = this.props;
+        EnquireScreen((bool) => {
+            dispatch('isMobile', {isMobile: bool});
+        });
+    }
 
     render() {
         const {state} = this.props;
