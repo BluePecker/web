@@ -7,10 +7,13 @@ import {Layout, Menu, Icon} from 'antd';
 import {ContainerQuery} from 'react-container-query';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
+import {enquireScreen as EnquireScreen} from 'enquire-js';
 
 import Inject from '../inject';
 
 import style from './admin.less';
+
+import Slider from '../../component/Slider';
 
 const query = {
     'screen-xs': {
@@ -33,7 +36,7 @@ const query = {
     },
 };
 
-const {Sider, Header, Content} = Layout;
+const {Header, Content} = Layout;
 
 class Admin extends React.Component {
 
@@ -101,10 +104,10 @@ class Admin extends React.Component {
         return Object.keys(menu).length ? [route] : [defaultItem];
     }
 
-    handleOpenChange = keys => {
+    handleChange = keys => {
         let route = '';
         const {dispatch} = this.props;
-        dispatch('menu_change', {
+        dispatch('onChange', {
             keys: keys.length ? keys[keys.length - 1].replace(/(^\/|\/$)/, '').split('/').map(item => {
                 return route = `${route}/${item}`;
             }) : []
@@ -116,30 +119,51 @@ class Admin extends React.Component {
         dispatch('collapsed');
     };
 
+    handleCollapse = () => {
+        const {dispatch} = this.props;
+        dispatch('collapsed');
+    };
+
+    componentDidMount() {
+        const {dispatch} = this.props;
+        EnquireScreen((bool) => {
+            dispatch('isMobile', {isMobile: bool});
+        });
+    }
+
     render() {
         const {state} = this.props;
 
         const layout = (
             <Layout>
-                <Sider
-                    collapsible
+                <Slider
                     collapsed={state.collapsed}
-                    breakpoint="md"
-                    width={256}
-                    trigger={null}
-                    className={ClassNames(style.sider)}
-                >
-                    <Menu
-                        selectedKeys={this.selectedMenuKeys(state.menu || {})}
-                        theme="dark"
-                        mode="inline"
-                        onOpenChange={this.handleOpenChange}
-                        {...state.menu_open_keys}
-                        openKeys={state.menu_open_keys}
-                    >
-                        {this.getNavMenuItems(state.menu || {})}
-                    </Menu>
-                </Sider>
+                    metadata={state.menu}
+                    openKeys={state.openKeys}
+                    {...this.props}
+                    handleChange={this.handleChange}
+                    mobile={state.isMobile}
+                    onCollapse={this.handleCollapse}
+                />
+                {/*<Sider*/}
+                {/*collapsible*/}
+                {/*collapsed={state.collapsed}*/}
+                {/*breakpoint="md"*/}
+                {/*width={256}*/}
+                {/*trigger={null}*/}
+                {/*className={ClassNames(style.sider)}*/}
+                {/*>*/}
+                {/*<Menu*/}
+                {/*selectedKeys={this.selectedMenuKeys(state.menu || {})}*/}
+                {/*theme="dark"*/}
+                {/*mode="inline"*/}
+                {/*onOpenChange={this.handleOpenChange}*/}
+                {/*{...state.menu_open_keys}*/}
+                {/*openKeys={state.menu_open_keys}*/}
+                {/*>*/}
+                {/*{this.getNavMenuItems(state.menu || {})}*/}
+                {/*</Menu>*/}
+                {/*</Sider>*/}
                 <Layout>
                     <Header className={ClassNames(style.header)}>
                         <Icon

@@ -1,6 +1,6 @@
 //noinspection JSUnusedGlobalSymbols
 export default (state = {
-    menu          : {
+    menu     : {
         home    : {
             name: '管理后台',
             icon: 'home'
@@ -44,16 +44,22 @@ export default (state = {
             }
         }
     },
-    menu_open_keys: [],
-    collapsed     : false,
+    openKeys : [],
+    collapsed: false,
 }, action) => {
     switch (action.type) {
-    case 'admin/menu_change':
-        state.menu_open_keys = action.keys;
-        return Object.assign({}, state);
+    case 'admin/onChange':
+        return Object.assign({}, state, {
+            openKeys: action.keys
+        });
     case 'admin/collapsed':
-        state.collapsed = !state.collapsed;
-        return Object.assign({}, state);
+        return Object.assign({}, state, {
+            collapsed: !state.collapsed
+        });
+    case 'admin/isMobile':
+        return Object.assign({}, state, {
+            isMobile: action.isMobile
+        });
     default:
         return state;
     }
