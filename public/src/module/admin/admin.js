@@ -6,7 +6,7 @@ import ClassNames from 'classnames';
 import {Layout, Menu, Icon} from 'antd';
 import {ContainerQuery} from 'react-container-query';
 import DocumentTitle from 'react-document-title';
-import {Link} from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
 import PropTypes from 'prop-types';
 import "antd/dist/antd.less";
@@ -165,6 +165,21 @@ class Admin extends React.Component {
         this.handleExpand();
     }
 
+    builderRoute() {
+        const {state: {menu}} = this.props;
+        const traverse = (menu, father = '', map = {}) => {
+            Object.keys(menu).forEach(route => {
+                let unique = `${father}/${route}`;
+                typeof menu[route].children !== 'object' ? (map[unique] = menu[route]) : traverse(menu[route].children, unique, map);
+            });
+            return map;
+        };
+
+        return Object.keys(traverse(menu)).map(item =>
+            <Route key={item} path={item} component={require(`.${item}`).default}/>
+        );
+    }
+
     render() {
         const {state} = this.props;
         const {collapsed, menu, openKeys, isMobile} = state;
@@ -227,8 +242,9 @@ class Admin extends React.Component {
                             content={content}
                             extraContent={extraContent}
                         >
-                            ljkasldjkfljasldjfl
+
                         </Breadcrumb>
+                        {this.builderRoute()}
                         <Footer
                             links={[{
                                 key        : 'Pro 首页',

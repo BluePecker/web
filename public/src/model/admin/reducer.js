@@ -8,40 +8,40 @@ EnquireScreen((bool) => {
 //noinspection JSUnusedGlobalSymbols
 export default (state = {
     menu     : {
-        home    : {
-            name    : '管理后台',
-            icon    : 'home',
-            children: {
-                dashboard: {
-                    name: '控制台',
-                    icon: 'dashboard',
-                },
-            }
-        },
-        metadata: {
-            name    : '数据中心',
-            icon    : 'pie-chart',
-            children: {
-                dashboard: {
-                    name: '数据总览',
-                    icon: 'dashboard',
-                },
-                area     : {
-                    name    : '地区数据',
-                    icon    : 'global',
-                    children: {
-                        beijing: {
-                            name: '北京',
-                            icon: 'cloud',
-                        },
-                        chengdu: {
-                            name: '成都',
-                            icon: 'cloud',
-                        },
-                    }
-                }
-            },
-        },
+        // home    : {
+        //     name    : '管理后台',
+        //     icon    : 'home',
+        //     children: {
+        //         dashboard: {
+        //             name: '控制台',
+        //             icon: 'dashboard',
+        //         },
+        //     }
+        // },
+        // metadata: {
+        //     name    : '数据中心',
+        //     icon    : 'pie-chart',
+        //     children: {
+        //         dashboard: {
+        //             name: '数据总览',
+        //             icon: 'dashboard',
+        //         },
+        //         area     : {
+        //             name    : '地区数据',
+        //             icon    : 'global',
+        //             children: {
+        //                 beijing: {
+        //                     name: '北京',
+        //                     icon: 'cloud',
+        //                 },
+        //                 chengdu: {
+        //                     name: '成都',
+        //                     icon: 'cloud',
+        //                 },
+        //             }
+        //         }
+        //     },
+        // },
         secure  : {
             name    : '安全中心',
             icon    : 'safety',
