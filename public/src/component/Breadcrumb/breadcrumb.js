@@ -42,7 +42,7 @@ class PageHeader extends React.Component {
         } = this.props;
         const clsString = classNames(styles.pageHeader, className);
         let breadcrumb;
-        if (pathname) {
+        if (pathname && nameMap[pathname]) {
             const snippets = pathname.split('/').filter(i => i);
             let route = '';
             const items = snippets.map(item => {

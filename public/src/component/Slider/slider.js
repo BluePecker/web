@@ -24,8 +24,8 @@ export default props => {
         >
             <div className={ClassNames(slider.logo)} key="logo">
                 <Link to="/">
-                    <img src={logo} alt="logo" />
-                    <h1>Bamboo管理后台</h1>
+                    <img src={logo} alt="logo"/>
+                    <h1>泵房管理后台</h1>
                 </Link>
             </div>
             <Menu {...props}/>
