@@ -8,6 +8,7 @@ import {ContainerQuery} from 'react-container-query';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
+import PropTypes from 'prop-types';
 import "antd/dist/antd.less";
 
 import Inject from '../inject';
@@ -17,6 +18,7 @@ import Avatar from '../../assets/avatar.png';
 import Slider from '../../component/Slider';
 import Header from '../../component/Header';
 import Footer from '../../component/Footer';
+import Breadcrumb from '../../component/Breadcrumb';
 
 const query = {
     'screen-xs': {
@@ -42,6 +44,32 @@ const query = {
 const {Content} = Layout;
 
 class Admin extends React.Component {
+
+    //noinspection JSUnusedGlobalSymbols
+    static childContextTypes = {
+        location: PropTypes.object,
+        nameMap : PropTypes.object,
+    };
+
+    //noinspection JSUnusedGlobalSymbols
+    getChildContext() {
+        const {location} = this.props;
+        const {nameMap} = this.breadcrumbNameMap();
+        return {nameMap, location};
+    }
+
+    breadcrumbNameMap() {
+        const {state: {menu}} = this.props;
+        const traverse = (menu, father = '', map = {}) => {
+            Object.keys(menu).forEach(route => {
+                let unique = `${father}/${route}`;
+                map[unique] = menu[route];
+                typeof menu[route].children === 'object' && traverse(menu[route].children, unique, map);
+            });
+            return map;
+        };
+        return {nameMap: traverse(menu)};
+    }
 
     titleBuilder(menu) {
         const {location} = this.props;
@@ -141,6 +169,34 @@ class Admin extends React.Component {
         const {state} = this.props;
         const {collapsed, menu, openKeys, isMobile} = state;
 
+
+        const content = (
+            <div>
+                <p>
+                    段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
+                    提供跨越设计与开发的体验解决方案。
+                </p>
+                <div>
+                    <a>
+                        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg"/> 快速开始
+                    </a>
+                    <a>
+                        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"/> 产品简介
+                    </a>
+                    <a>
+                        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"/> 产品文档
+                    </a>
+                </div>
+            </div>
+        );
+
+        const extraContent = (
+            <div>
+                <img alt="这是一个标题" src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"/>
+            </div>
+        );
+
+
         const layout = (
             <Layout>
                 <Slider
@@ -166,7 +222,13 @@ class Admin extends React.Component {
                     >
                     </Header>
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
-
+                        <Breadcrumb
+                            title="卡片列表"
+                            content={content}
+                            extraContent={extraContent}
+                        >
+                            ljkasldjkfljasldjfl
+                        </Breadcrumb>
                     </Content>
                     <Footer
                         links={[{
