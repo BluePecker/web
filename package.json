@@ -4,11 +4,12 @@
     "private": true,
     "scripts": {
         "start": "webpack-dev-server",
-        "build": "webpack --display-error-details"
+        "build": "webpack --display-error-details --progress"
     },
     "dependencies": {
         "@antv/data-set": "^0.8.5",
         "antd": "^3.1.1",
+        "autoprefixer": "^7.2.5",
         "bizcharts": "^3.1.0",
         "bizcharts-plugin-slider": "^2.0.1",
         "classnames": "^2.2.5",
@@ -38,6 +39,7 @@
         "babel-core": "^6.7.7",
         "babel-eslint": "^7.2.3",
         "babel-loader": "^7.1.1",
+        "babel-plugin-import": "^1.6.3",
         "babel-plugin-syntax-async-functions": "^6.5.0",
         "babel-plugin-transform-async-to-generator": "^6.6.5",
         "babel-plugin-transform-decorators": "^6.24.1",
