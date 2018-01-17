@@ -30,6 +30,7 @@ class Dashboard extends React.Component {
     };
 
     onNum3 = num => {
+        console.log(num);
         const {state} = this.props;
         state.num3 = num;
         this.socket && this.socket.emit('update', state);
@@ -53,7 +54,7 @@ class Dashboard extends React.Component {
         this.socket && this.socket.emit('update', state);
     };
 
-    componentDidMount() {
+    componentWillMount() {
         const {dispatch} = this.props;
         this.socket = require('socket.io-client')('ws://47.52.136.193:4044');
 
@@ -186,37 +187,37 @@ class Dashboard extends React.Component {
                                     {...formItemLayout}
                                     label={'瞬时流量'}
                                 >
-                                    <InputNumber min={0} defaultValue={flow1} onChange={this.onFlow1}/>
+                                    <InputNumber min={0} value={flow1} defaultValue={flow1} onChange={this.onFlow1}/>
                                 </Form.Item>
                                 <Form.Item
                                     {...formItemLayout}
                                     label={'本日流量'}
                                 >
-                                    <InputNumber min={0} defaultValue={flow2} onChange={this.onFlow2}/>
+                                    <InputNumber min={0} value={flow2} defaultValue={flow2} onChange={this.onFlow2}/>
                                 </Form.Item>
                                 <Form.Item
                                     {...formItemLayout}
                                     label={'状态开关'}
                                 >
-                                    <Switch size={'default'} defaultChecked={status} onChange={this.onSwitch}/>
+                                    <Switch size={'default'} checked={status} defaultChecked={status} onChange={this.onSwitch}/>
                                 </Form.Item>
                                 <Form.Item
                                     {...formItemLayout}
                                     label={'水泵总数'}
                                 >
-                                    <InputNumber min={0} defaultValue={num2} onChange={this.onNum2}/>
+                                    <InputNumber min={0} value={num2} defaultValue={num2} onChange={this.onNum2}/>
                                 </Form.Item>
                                 <Form.Item
                                     {...formItemLayout}
                                     label={'异常水泵数'}
                                 >
-                                    <InputNumber min={0} defaultValue={num3} onChange={this.onNum3}/>
+                                    <InputNumber min={0} value={num3} defaultValue={num3} onChange={this.onNum3}/>
                                 </Form.Item>
                                 <Form.Item
                                     {...formItemLayout}
                                     label={'检修次数'}
                                 >
-                                    <InputNumber min={0} defaultValue={num4} onChange={this.onNum4}/>
+                                    <InputNumber min={0} value={num4} defaultValue={num4} onChange={this.onNum4}/>
                                 </Form.Item>
                             </Form>
                         </Card>
@@ -236,7 +237,7 @@ class Dashboard extends React.Component {
                     <Col xl={12} lg={12} sm={24} xs={24} style={{marginBottom: 24}}>
                         <Card title="管理泵" bodyStyle={{textAlign: 'center', fontSize: 0}} bordered={false}>
                             <Row style={{margin: '65px 0'}}>
-                                <InputNumber min={1} max={100} defaultValue={num1} onChange={this.onNum1}/>
+                                <InputNumber min={1} max={100} value={num1} defaultValue={num1} onChange={this.onNum1}/>
                             </Row>
                         </Card>
                     </Col>
