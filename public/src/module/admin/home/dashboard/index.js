@@ -58,7 +58,8 @@ class Dashboard extends React.Component {
         this.socket = require('socket.io-client')('ws://47.52.136.193:4044');
 
         this.socket.on('connect', () => {
-            console.log('ws connect success!');
+            // 初始化的时候触发拉取数据
+            this.socket.emit('pull', {});
         });
 
         this.socket.on('notice', data => {
