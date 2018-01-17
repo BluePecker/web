@@ -23,6 +23,9 @@ export default (state = {
         return Object.assign({}, state, {flow1: action.flow1});
     case 'admin_home_dashboard/flow2':
         return Object.assign({}, state, {flow2: action.flow2});
+    case 'admin_home_dashboard/state':
+        delete action['type'];
+        return Object.assign({}, state, action);
     default:
         return state;
     }

@@ -9,41 +9,62 @@ import Inject from '../../../inject';
 import map from '../../../../assets/map.png';
 
 class Dashboard extends React.Component {
+    socket;
 
     onSwitch = checked => {
-        const {dispatch} = this.props;
-        dispatch('status', {status: checked});
+        const {state} = this.props;
+        state.status = checked;
+        this.socket && this.socket.emit('update', state);
     };
 
     onNum1 = num => {
-        const {dispatch} = this.props;
-        dispatch('num1', {num1: num});
+        const {state} = this.props;
+        state.num1 = num;
+        this.socket && this.socket.emit('update', state);
     };
 
     onNum2 = num => {
-        const {dispatch} = this.props;
-        dispatch('num2', {num2: num});
+        const {state} = this.props;
+        state.num2 = num;
+        this.socket && this.socket.emit('update', state);
     };
 
     onNum3 = num => {
-        const {dispatch} = this.props;
-        dispatch('num3', {num3: num});
+        const {state} = this.props;
+        state.num3 = num;
+        this.socket && this.socket.emit('update', state);
     };
 
     onNum4 = num => {
-        const {dispatch} = this.props;
-        dispatch('num4', {num4: num});
+        const {state} = this.props;
+        state.num4 = num;
+        this.socket && this.socket.emit('update', state);
     };
 
     onFlow1 = num => {
-        const {dispatch} = this.props;
-        dispatch('flow1', {flow1: num});
+        const {state} = this.props;
+        state.flow1 = num;
+        this.socket && this.socket.emit('update', state);
     };
 
     onFlow2 = num => {
-        const {dispatch} = this.props;
-        dispatch('flow2', {flow2: num});
+        const {state} = this.props;
+        state.flow2 = num;
+        this.socket && this.socket.emit('update', state);
     };
+
+    componentDidMount() {
+        const {dispatch} = this.props;
+        this.socket = require('socket.io-client')('ws://47.52.136.193:4044');
+
+        this.socket.on('connect', () => {
+            console.log('ws connect success!');
+        });
+
+        this.socket.on('notice', data => {
+            dispatch('state', data);
+        });
+    }
 
     render() {
         const {state: {num1, num2, num3, num4, status, flow1, flow2}} = this.props;
