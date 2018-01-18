@@ -9,7 +9,10 @@ const htmlwebpackplugin = require('html-webpack-plugin');
 const manifestplugin = require('manifest-webpack-plugin');
 
 module.exports = {
-    entry    : __dirname + "/public/src/main.js",
+    entry    : {
+        bundle: __dirname + "/public/src/main.js",
+        vendor: ['react', 'react-dom', 'react-router-dom']
+    },
     output   : {
         path    : __dirname + "/build",
         filename: "asset/js/[hash].js",
@@ -106,5 +109,13 @@ module.exports = {
         new extracttextplugin("asset/css/[hash].css"),
         new manifestplugin('build/manifest.json'),
         new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name    : 'vendor',
+            filename: 'vendor.bundle.js'
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
     ],
 };
