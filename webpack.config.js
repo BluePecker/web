@@ -1,6 +1,6 @@
 /**
  *
- * @typedef {{BannerPlugin: function, HotModuleReplacementPlugin: function}} webpack
+ * @typedef {{BannerPlugin: function,HotModuleReplacementPlugin:function,DefinePlugin:function}} webpack
  * @typedef {{extract: function}} extracttextplugin
  */
 const webpack = require("webpack");
@@ -14,7 +14,9 @@ module.exports = {
         path    : __dirname + "/build",
         filename: "asset/js/[hash].js",
     },
-    devtool  : 'eval-source-map',
+    // just for dev
+    //devtool  : 'eval-source-map',
+    devtool  : false,
     devServer: {
         contentBase       : "./build",
         inline            : true,
@@ -105,5 +107,8 @@ module.exports = {
         new extracttextplugin("asset/css/[hash].css"),
         new manifestplugin('build/manifest.json'),
         new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
     ],
 };
