@@ -48,17 +48,6 @@ module.exports = {
                 ],
                 exclude: /node_modules/,
             },
-            // {
-            //     test  : /\.(png|jpg)$/,
-            //     loader: [
-            //         {
-            //             loader : 'url-loader',
-            //             options: {
-            //                 limit: 819200
-            //             }
-            //         }
-            //     ]
-            // },
             {
                 test  : /\.(woff|eot|ttf)$/,
                 loader: [
