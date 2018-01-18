@@ -83,7 +83,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(less|css)$/,
+                test: /\.css$/,
                 use : extracttextplugin.extract({
                     use     : [
                         {
@@ -92,14 +92,28 @@ module.exports = {
                                 localIdentName: '[local]',
                                 importLoaders : 1,
                                 modules       : true,
+                                autoprefixer  : true,
                             }
                         },
+                        {loader: 'postcss-loader'},
+                    ],
+                    fallback: 'style-loader',
+                }),
+            }, {
+                test: /\.less$/,
+                use : extracttextplugin.extract({
+                    use     : [
                         {
-                            loader: 'postcss-loader', // 补全css代码的兼容性前缀
+                            loader : 'css-loader',
+                            options: {
+                                localIdentName: '[local]',
+                                importLoaders : 1,
+                                modules       : true,
+                                autoprefixer  : true,
+                            }
                         },
-                        {
-                            loader: 'less-loader',
-                        },
+                        {loader: 'postcss-loader'},
+                        {loader: 'less-loader'},
                     ],
                     fallback: 'style-loader',
                 }),

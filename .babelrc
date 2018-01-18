@@ -5,6 +5,13 @@
         "stage-1"
     ],
     "plugins": [
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "style": "css"
+            }
+        ],
         "transform-decorators-legacy",
         "transform-decorators",
         "transform-runtime",

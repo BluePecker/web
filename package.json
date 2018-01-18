@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "antd": "^3.1.1",
+        "autoprefixer": "^7.2.5",
         "classnames": "^2.2.5",
         "console-polyfill": "^0.3.0",
         "enquire-js": "^0.1.1",
@@ -27,6 +28,7 @@
         "redux": "^3.7.2"
     },
     "devDependencies": {
+        "babel-plugin-import": "^1.6.3",
         "babel-cli": "^6.6.5",
         "babel-core": "^6.7.7",
         "babel-eslint": "^7.2.3",
