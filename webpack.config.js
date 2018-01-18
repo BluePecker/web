@@ -136,7 +136,7 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name    : 'vendor',
-            filename: 'vendor.bundle.js'
+            filename: 'asset/js/vendor.js'
         }),
     ],
 };
