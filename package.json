@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "webpack-dev-server",
-        "build": "webpack --display-error-details --process"
+        "build": "webpack --display-error-details --progress"
     },
     "dependencies": {
         "antd": "^3.1.1",
