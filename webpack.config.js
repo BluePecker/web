@@ -25,7 +25,6 @@ module.exports = {
         path    : __dirname + "/build",
         filename: "asset/js/[hash].js",
     },
-    // just for dev
     //devtool  : 'eval-source-map',
     devtool  : false,
     devServer: {
