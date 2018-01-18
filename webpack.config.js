@@ -1,6 +1,6 @@
 /**
  *
- * @typedef {{BannerPlugin: function,HotModuleReplacementPlugin:function,DefinePlugin:function}} webpack
+ * @typedef {{BannerPlugin: function,HotModuleReplacementPlugin:function,DefinePlugin:function,ContextReplacementPlugin:function}} webpack
  * @typedef {{extract: function}} extracttextplugin
  */
 const webpack = require("webpack");
@@ -48,17 +48,17 @@ module.exports = {
                 ],
                 exclude: /node_modules/,
             },
-            {
-                test  : /\.(png|jpg)$/,
-                loader: [
-                    {
-                        loader : 'url-loader',
-                        options: {
-                            limit: 819200
-                        }
-                    }
-                ]
-            },
+            // {
+            //     test  : /\.(png|jpg)$/,
+            //     loader: [
+            //         {
+            //             loader : 'url-loader',
+            //             options: {
+            //                 limit: 819200
+            //             }
+            //         }
+            //     ]
+            // },
             {
                 test  : /\.(woff|eot|ttf)$/,
                 loader: [
@@ -71,12 +71,12 @@ module.exports = {
                 ]
             },
             {
-                test  : /\.(svg|gif)$/,
+                test  : /\.(svg|gif|png|jpg)$/,
                 loader: [
                     {
                         loader : 'file-loader',
                         options: {
-                            name: 'asset/icon/[hash].[ext]'
+                            name: 'asset/img/[hash].[ext]'
                         }
                     }
                 ]
@@ -138,5 +138,7 @@ module.exports = {
             name    : 'vendor',
             filename: 'asset/js/vendor.js'
         }),
+        new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
+        new webpack.ContextReplacementPlugin(/moment\/locale$/, /^\.\/(zh-cn|en-gb)$/)
     ],
 };
