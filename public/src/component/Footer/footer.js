@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './footer.less';
 
 export default ({className, links, copyright}) => {
-    const clsString = classNames(styles.globalFooter, className);
+    const clsString = classNames(className, styles.globalFooter);
     return (
         <div className={clsString}>
             {

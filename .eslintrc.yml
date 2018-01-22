@@ -26,6 +26,7 @@ rules:
     key-spacing: [0, {"align": "colon"}]
     import/no-dynamic-require: 0
     import/no-extraneous-dependencies: 0
+    import/prefer-default-export: 0
     react/prefer-stateless-function: 0
     react/forbid-prop-types: 0
     react/prop-types: 0

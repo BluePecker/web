@@ -1,20 +1,19 @@
 //noinspection JSUnusedGlobalSymbols
 export default (state = {
-    metadata: []
+    metadata: [],
+    username: '',
+    password: '',
 }, action) => {
     switch (action.type) {
-    case 'admin/expand':
-        return Object.assign({}, state, {
-            openKeys: action.openKeys
-        });
-    case 'admin/collapsed':
-        return Object.assign({}, state, {
-            collapsed: !state.collapsed
-        });
-    case 'admin/isMobile':
-        return Object.assign({}, state, {
-            isMobile: action.isMobile
-        });
+    case 'user/login/auto-complete':
+        delete action['type'];
+        return Object.assign({}, state, action);
+    case 'user/login/username':
+        delete action['type'];
+        return Object.assign({}, state, action);
+    case 'user/login/password':
+        delete action['type'];
+        return Object.assign({}, state, action);
     default:
         return state;
     }

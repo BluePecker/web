@@ -32,15 +32,25 @@ export default (config = {}) => {
             state: namespace ? state[namespace.replace(/\//g, '_')] : state
         });
     }, dispatch => {
-        const {namespace} = setting;
-        //noinspection JSUnusedGlobalSymbols
-        return {
-            dispatch: (action, payload, global = false) => {
-                dispatch({
-                    type: global ? action : [namespace, action].join('/'),
-                    ...payload
-                });
-            },
+        const method = (action, payload, global = false) => {
+            dispatch({
+                type: global ? action : [namespace, action].join('/'),
+                ...payload
+            });
         };
+        
+        const {namespace} = setting;
+        let actions = require(`../model/${namespace}/action.js`);
+
+        Object.keys(actions).forEach(key => {
+            actions[key] = new Proxy(actions[key], {
+                apply(target, ctx, args) {
+                    return Reflect.apply(target, ctx, args.concat([method]));
+                }
+            });
+        });
+
+        //noinspection JSUnusedGlobalSymbols
+        return {method, ...actions};
     })(Container);
 };
