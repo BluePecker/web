@@ -17,13 +17,38 @@ class Login extends React.Component {
     render() {
         // const {state: {metadata}} = this.props;
 
+        const account = (
+            <Form.Item>
+                <Input.Group compact>
+                    {/*<AutoComplete*/}
+                    {/*size="large"*/}
+                    {/*dataSource={metadata}*/}
+                    {/*onChange={this.usernameOnChange}*/}
+                    {/*// onSelect={this.usernameOnSelect}*/}
+                    {/*>*/}
+                    <Input
+                        placeholder="用户名"
+                        maxLength="24"
+                        prefix={<Icon type="user" className={styles.inputIcon}/>}
+                    />
+                    {/*</AutoComplete>*/}
+                </Input.Group>
+            </Form.Item>
+        );
+
+        const mobile = (
+            <Form.Item>
+
+            </Form.Item>
+        );
+
         return (
             <DocumentTitle title={'登录-管理后台'}>
                 <div className={styles.container}>
                     <div className={styles.top}>
                         <div className={styles.name}>
                             <Link to="/">
-                                <img alt="logo" className={styles.logoImg} src={logo} />
+                                <img alt="logo" className={styles.logoImg} src={logo}/>
                                 <span className={styles.title}>通用管理后台</span>
                             </Link>
                         </div>
@@ -35,27 +60,10 @@ class Login extends React.Component {
                             <div>
                                 <Tabs className={styles.tabs}>
                                     <Tabs.TabPane key="account" tab="账号登录">
-                                        <Form.Item>
-                                            <Input.Group compact>
-                                                {/*<AutoComplete*/}
-                                                {/*size="large"*/}
-                                                {/*dataSource={metadata}*/}
-                                                {/*onChange={this.usernameOnChange}*/}
-                                                {/*// onSelect={this.usernameOnSelect}*/}
-                                                {/*>*/}
-                                                <Input
-                                                    placeholder="用户名"
-                                                    maxLength="24"
-                                                    prefix={<Icon type="user" className={styles.inputIcon}/>}
-                                                />
-                                                {/*</AutoComplete>*/}
-                                            </Input.Group>
-                                        </Form.Item>
-
-
+                                        {account}
                                     </Tabs.TabPane>
                                     <Tabs.TabPane key="mobile" tab="快捷登录">
-
+                                        {mobile}
                                     </Tabs.TabPane>
                                 </Tabs>
                             </div>
