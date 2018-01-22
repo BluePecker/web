@@ -5,8 +5,7 @@ EnquireScreen((bool) => {
     isMobile = bool;
 });
 
-//noinspection JSUnusedGlobalSymbols
-export default (state = {
+export const state = {
     menu     : {
         // home    : {
         //     name    : '管理后台',
@@ -42,7 +41,7 @@ export default (state = {
         //         }
         //     },
         // },
-        secure  : {
+        secure: {
             name    : '安全中心',
             icon    : 'safety',
             children: {
@@ -63,22 +62,27 @@ export default (state = {
     },
     openKeys : [],
     collapsed: false,
-    isMobile : isMobile,
-}, action) => {
-    switch (action.type) {
-    case 'admin/expand':
-        return Object.assign({}, state, {
-            openKeys: action.openKeys
-        });
-    case 'admin/collapsed':
+    // todo 修复bug
+    isMobile : (() => {
+        return true;
+    })(),
+};
+
+//noinspection JSUnusedGlobalSymbols
+export default {
+    collapsed: (state) => {
         return Object.assign({}, state, {
             collapsed: !state.collapsed
         });
-    case 'admin/isMobile':
+    },
+    expand   : (state, payload) => {
         return Object.assign({}, state, {
-            isMobile: action.isMobile
+            ...payload
         });
-    default:
-        return state;
+    },
+    isMobile : (state, payload) => {
+        return Object.assign({}, state, {
+            isMobile: payload.isMobile === undefined ? false : payload.isMobile
+        });
     }
 };

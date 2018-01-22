@@ -29,17 +29,17 @@ export default (config = {}) => {
         const {namespace} = setting;
 
         return Object.assign({}, {props}, {
-            state: namespace ? state[namespace.replace(/\//g, '_')] : state
+            state: namespace ? state[namespace] : state
         });
     }, dispatch => {
+        const {namespace} = setting;
         const method = (action, payload, global = false) => {
             dispatch({
                 type: global ? action : [namespace, action].join('/'),
                 ...payload
             });
         };
-        
-        const {namespace} = setting;
+
         let actions = require(`../model/${namespace}/action.js`);
 
         Object.keys(actions).forEach(key => {
@@ -51,6 +51,6 @@ export default (config = {}) => {
         });
 
         //noinspection JSUnusedGlobalSymbols
-        return {method, ...actions};
+        return {dispatch: method, ...actions};
     })(Container);
 };
