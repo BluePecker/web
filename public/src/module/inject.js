@@ -26,15 +26,18 @@ export default (config = {}) => {
     Container.defaultProps = {setting};
 
     return connect((state, props) => {
+        const {namespace} = setting;
+
         return Object.assign({}, {props}, {
-            state: setting.namespace ? state[setting.namespace] : state
+            state: namespace ? state[namespace.replace(/\//g, '_')] : state
         });
     }, dispatch => {
+        const {namespace} = setting;
         //noinspection JSUnusedGlobalSymbols
         return {
             dispatch: (action, payload, global = false) => {
                 dispatch({
-                    type: global ? action : [setting.namespace, action].join('/'),
+                    type: global ? action : [namespace, action].join('/'),
                     ...payload
                 });
             },
