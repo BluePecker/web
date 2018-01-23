@@ -1,20 +1,18 @@
-//noinspection JSUnusedGlobalSymbols
-export default (state = {
+export const state = {
     metadata: [],
     username: '',
     password: '',
-}, action) => {
-    switch (action.type) {
-    case 'user/login/auto-complete':
-        delete action['type'];
-        return Object.assign({}, state, action);
-    case 'user/login/username':
-        delete action['type'];
-        return Object.assign({}, state, action);
-    case 'user/login/password':
-        delete action['type'];
-        return Object.assign({}, state, action);
-    default:
-        return state;
-    }
+};
+
+//noinspection JSUnusedGlobalSymbols
+export default {
+    username    : (state, payload) => {
+        return Object.assign({}, state, payload);
+    },
+    password    : (state, payload) => {
+        return Object.assign({}, state, payload);
+    },
+    autoComplete: (state, payload) => {
+        return Object.assign({}, state, payload);
+    },
 };

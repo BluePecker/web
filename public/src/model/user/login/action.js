@@ -1,6 +1,6 @@
 //noinspection JSUnusedGlobalSymbols
 export const usernameOnChange = (value, dispatch) => {
-    dispatch('auto-complete', {
+    dispatch('autoComplete', {
         username: value,
         metadata: !value || value.indexOf('@') >= 0 ? [] : [
             `${value}@qq.com`,
@@ -11,7 +11,7 @@ export const usernameOnChange = (value, dispatch) => {
 };
 
 //noinspection JSUnusedGlobalSymbols
-export const usernameOnSelect = (value, dispatch) => {
+export const usernameOnSelect = (value, option, dispatch) => {
     dispatch('username', {username: value});
 };
 

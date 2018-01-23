@@ -14,7 +14,6 @@ import Inject from '../../inject';
 
 class Login extends React.Component {
 
-
     render() {
         const {state: {metadata, username, password}, passwordOnChange, usernameOnChange, usernameOnSelect} = this.props;
 
