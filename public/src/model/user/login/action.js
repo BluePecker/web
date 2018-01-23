@@ -2,8 +2,11 @@
 export const usernameOnChange = (value, dispatch) => {
     dispatch('autoComplete', {
         username: value,
-        metadata: !value || value.indexOf('@') >= 0 ? [] : [
+        metadata: !value || value.indexOf('@') >= 0 ? [] : /\d/g.test(value) ? [
             `${value}@qq.com`,
+            `${value}@gmail.com`,
+            `${value}@163.com`,
+        ] : [
             `${value}@gmail.com`,
             `${value}@163.com`,
         ],
