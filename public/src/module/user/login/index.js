@@ -68,7 +68,9 @@ class Login extends React.Component {
                             <Col span={9}>
                                 <Button
                                     className={styles.captcha}
-                                />
+                                >
+                                    {'获取验证码'}
+                                </Button>
                             </Col>
                         </Row>
                     </Form.Item>
