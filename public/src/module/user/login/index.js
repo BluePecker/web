@@ -2,7 +2,7 @@
  * @typedef {{Component:class}} React
  */
 import React from 'react';
-import {Form, Tabs, Input, AutoComplete, Icon, Checkbox, Button} from 'antd';
+import {Form, Tabs, Input, AutoComplete, Icon, Checkbox, Button, Row, Col} from 'antd';
 import {Link} from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
@@ -49,7 +49,29 @@ class Login extends React.Component {
                     </Form.Item>
                 </Tabs.TabPane>
                 <Tabs.TabPane key="mobile" tab="快捷登录">
-
+                    <Form.Item style={{height: 32}}>
+                        <Input
+                            placeholder="手机号"
+                            maxLength="11"
+                            prefix={<Icon type="mobile" className={styles.inputIcon}/>}
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Row gutter={8}>
+                            <Col span={15}>
+                                <Input
+                                    placeholder="验证码"
+                                    maxLength="6"
+                                    prefix={<Icon type="mail" className={styles.inputIcon}/>}
+                                />
+                            </Col>
+                            <Col span={9}>
+                                <Button
+                                    className={styles.captcha}
+                                />
+                            </Col>
+                        </Row>
+                    </Form.Item>
                 </Tabs.TabPane>
             </Tabs>
         );
