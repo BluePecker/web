@@ -184,7 +184,6 @@ class Admin extends React.Component {
         const {state} = this.props;
         const {collapsed, menu, openKeys, isMobile} = state;
 
-
         const content = (
             <div>
                 <p>
