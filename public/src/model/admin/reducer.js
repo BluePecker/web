@@ -1,10 +1,3 @@
-import {enquireScreen as EnquireScreen} from 'enquire-js';
-
-let isMobile;
-EnquireScreen((bool) => {
-    isMobile = bool;
-});
-
 export const state = () => {
     return {
         menu     : {
@@ -63,7 +56,7 @@ export const state = () => {
         },
         openKeys : [],
         collapsed: false,
-        isMobile : isMobile,
+        isMobile : false,
     };
 };
 

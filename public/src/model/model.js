@@ -9,16 +9,13 @@ const reducers = Redux.combineReducers((() => {
 
         const init = require(`${reducer}`).state || {};
         const func = require(`${reducer}`).default || {};
-        if (typeof func === 'function') {
-            container[namespace] = func;
-        } else {
-            container[namespace] = (state = typeof init === 'function' ? init() : init, action) => {
-                const method = !action.type ? '' : action.type.replace(`${namespace}/`, '');
-                const payload = Object.assign({}, action);
-                delete payload['type'];
-                return Reflect.has(func, method) && typeof func[method] === 'function' ? func[method](state, payload) : state;
-            };
-        }
+
+        container[namespace] = (state = typeof init === 'function' ? init() : init, action) => {
+            const method = !action.type ? '' : action.type.replace(`${namespace}/`, '');
+            const payload = Object.assign({}, action);
+            delete payload['type'];
+            return Reflect.has(func, method) && typeof func[method] === 'function' ? func[method](state, payload) : state;
+        };
     });
     return container;
 })());
