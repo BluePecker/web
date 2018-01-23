@@ -64,7 +64,7 @@ class Login extends React.Component {
                                 <span className={styles.title}>BAMBOO管理后台</span>
                             </Link>
                         </div>
-                        <div className={styles.desc}>简洁/高效/智能/安全</div>
+                        <div className={styles.desc}>简洁 / 高效 / 智能 / 安全</div>
                     </div>
 
                     <div className={styles.main}>
