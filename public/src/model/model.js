@@ -10,7 +10,6 @@ const reducers = Redux.combineReducers((() => {
         const init = require(`${reducer}`).state || {};
         const func = require(`${reducer}`).default || {};
         if (typeof func === 'function') {
-            console.log(namespace, init, func);
             container[namespace] = func;
         } else {
             container[namespace] = (state = typeof init === 'function' ? init() : init, action) => {
