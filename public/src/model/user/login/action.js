@@ -32,3 +32,8 @@ export const autoLoginOnChange = (e, dispatch) => {
 export const mobileOnChange = (e, dispatch) => {
     dispatch('mobile', {mobile: e.target.value});
 };
+
+//noinspection JSUnusedGlobalSymbols
+export const captchaOnChange = (e, dispatch) => {
+    dispatch('captcha', {captcha: e.target.value});
+};

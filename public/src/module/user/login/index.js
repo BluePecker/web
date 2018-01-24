@@ -16,8 +16,8 @@ class Login extends React.Component {
 
     render() {
         const {
-            state: {metadata, username, password, mobile, autoLogin},
-            passwordOnChange, usernameOnChange, usernameOnSelect, mobileOnChange, autoLoginOnChange
+            state: {metadata, username, password, mobile, autoLogin, captcha},
+            usernameOnChange, usernameOnSelect, passwordOnChange, mobileOnChange, autoLoginOnChange, captchaOnChange
         } = this.props;
 
         const table = (
@@ -33,7 +33,7 @@ class Login extends React.Component {
                             >
                                 <Input
                                     value={username.value}
-                                    placeholder="用户名"
+                                    placeholder="11位手机号或邮箱"
                                     maxLength="24"
                                     prefix={<Icon type="user" className={styles.inputIcon}/>}
                                 />
@@ -59,7 +59,7 @@ class Login extends React.Component {
                         style={{height: 32, marginBottom: 24, textAlign: 'left'}}
                     >
                         <Input
-                            placeholder="手机号"
+                            placeholder="11位手机号码"
                             maxLength="11"
                             prefix={<Icon type="mobile" className={styles.inputIcon}/>}
                             value={mobile.value}
@@ -69,15 +69,17 @@ class Login extends React.Component {
                     <Row gutter={8}>
                         <Col span={14}>
                             <Form.Item
-                                hasFeedback={'error'}
-                                validateStatus={'error'}
-                                help={'验证码错误'}
+                                hasFeedback={captcha.status}
+                                validateStatus={captcha.status}
+                                help={captcha.message}
                                 style={{textAlign: 'left'}}
                             >
                                 <Input
-                                    placeholder="验证码"
+                                    placeholder="短信验证码"
                                     maxLength="6"
                                     prefix={<Icon type="mail" className={styles.inputIcon}/>}
+                                    value={captcha.value}
+                                    onChange={captchaOnChange}
                                 />
                             </Form.Item>
                         </Col>

@@ -95,4 +95,29 @@ export default {
         }
         return Object.assign({}, state, payload);
     },
+    captcha     : (state, payload) => {
+        const {captcha} = payload;
+        if (captcha.length === 6) {
+            payload['captcha'] = /^\d{6}$/.test(captcha) ? {
+                status : 'success',
+                value  : captcha,
+                message: '',
+            } : {
+                status : 'error',
+                value  : captcha,
+                message: '六位纯数字验证码',
+            };
+        } else {
+            payload['captcha'] = captcha.length && !/^\d+$/.test(captcha) ? {
+                status : 'error',
+                value  : captcha,
+                message: '六位纯数字验证码',
+            } : {
+                status : '',
+                value  : captcha,
+                message: '',
+            };
+        }
+        return Object.assign({}, state, payload);
+    },
 };
