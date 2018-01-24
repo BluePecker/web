@@ -22,3 +22,8 @@ export const usernameOnSelect = (value, option, dispatch) => {
 export const passwordOnChange = (e, dispatch) => {
     dispatch('password', {password: e.target.value});
 };
+
+//noinspection JSUnusedGlobalSymbols
+export const autoLoginOnChange = (e, dispatch) => {
+    dispatch('autoLogin', {autoLogin: e.target.checked});
+};

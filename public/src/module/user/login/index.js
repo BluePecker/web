@@ -15,7 +15,10 @@ import Inject from '../../inject';
 class Login extends React.Component {
 
     render() {
-        const {state: {metadata, username, password}, passwordOnChange, usernameOnChange, usernameOnSelect} = this.props;
+        const {
+            state: {metadata, username, password, autoLogin},
+            passwordOnChange, usernameOnChange, usernameOnSelect, autoLoginOnChange
+        } = this.props;
 
         const table = (
             <Tabs className={styles.tabs}>
@@ -97,7 +100,7 @@ class Login extends React.Component {
                                 {table}
                             </div>
                             <Form.Item className={styles.additional}>
-                                <Checkbox checked>自动登录</Checkbox>
+                                <Checkbox checked={autoLogin} onChange={autoLoginOnChange}>自动登录</Checkbox>
                                 <a className={styles.forgot} href="">忘记密码</a>
                                 <Button size="large" className={styles.submit} type="primary" htmlType="submit">
                                     登录
