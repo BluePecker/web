@@ -26,6 +26,8 @@ export default (state, dispatch) => {
             },
             // 获取验证码倒计时
             count    : 0,
+            loginType: 'account',
+            loading  : false,
         };
 
         //noinspection JSUnusedGlobalSymbols
@@ -145,9 +147,24 @@ export default (state, dispatch) => {
         decrease = (state, payload) => {
             return Object.assign({}, state, payload);
         };
+
+        //noinspection JSUnusedGlobalSymbols
+        tableSwitch = (state, payload) => {
+            return Object.assign({}, state, payload);
+        };
+
+        //noinspection JSUnusedGlobalSymbols
+        loading = (state, payload) => {
+            return Object.assign({}, state, payload);
+        };
     }
 
     class Dispatch {
+        //noinspection JSUnusedGlobalSymbols
+        tableOnChange = (key) => {
+            dispatch('tableSwitch', {loginType: key});
+        };
+
         //noinspection JSUnusedGlobalSymbols
         usernameOnChange = (value) => {
             dispatch('autoComplete', {
@@ -195,6 +212,12 @@ export default (state, dispatch) => {
                     dispatch('decrease', {count});
                 }
             }, 1000);
+        };
+
+        //noinspection JSUnusedGlobalSymbols
+        login = () => {
+            console.log(state);
+            dispatch('loading', {loading: true});
         };
     }
 

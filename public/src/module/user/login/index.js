@@ -16,12 +16,12 @@ class Login extends React.Component {
 
     render() {
         const {
-            state: {metadata, username, password, mobile, autoLogin, captcha, count},
-            usernameOnChange, usernameOnSelect, passwordOnChange, mobileOnChange, autoLoginOnChange, captchaOnChange, onGetCaptcha
+            state: {loading, metadata, username, password, mobile, autoLogin, captcha, count, loginType},
+            tableOnChange, usernameOnChange, usernameOnSelect, passwordOnChange, mobileOnChange, autoLoginOnChange, captchaOnChange, onGetCaptcha, login
         } = this.props;
 
         const table = (
-            <Tabs className={styles.tabs}>
+            <Tabs className={styles.tabs} activeKey={loginType} onChange={tableOnChange}>
                 <Tabs.TabPane key="account" tab="账号登录">
                     <Form.Item>
                         <Input.Group compact>
@@ -120,8 +120,14 @@ class Login extends React.Component {
                             <Form.Item className={styles.additional}>
                                 <Checkbox checked={autoLogin} onChange={autoLoginOnChange}>自动登录</Checkbox>
                                 <a className={styles.forgot} href="">忘记密码</a>
-                                <Button size="large" className={styles.submit} type="primary" htmlType="submit">
-                                    登录
+                                <Button
+                                    size="large"
+                                    className={styles.submit}
+                                    type="primary"
+                                    loading={loading}
+                                    onClick={login}
+                                >
+                                    {loading ? '登录中...' : '登录'}
                                 </Button>
                             </Form.Item>
                         </Form>

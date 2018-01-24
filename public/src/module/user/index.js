@@ -117,7 +117,7 @@ export default class Login extends React.Component {
                     <div className={styles.main}>
                         <div className={styles.header}/>
                         <Form onSubmit={this.handleSubmit}>
-                            <Tabs className={styles.tabs} defaultActiveKey="account" activeKey={this.state.loginType} onChange={this.tableOnSwitch}>
+                            <Tabs className={styles.tabs} activeKey={this.state.loginType} onChange={this.tableOnSwitch}>
                                 <Tabs.TabPane tab="账号登录" key="account">
                                     <Form.Item>
                                         <Input.Group compact style={{height: 32}}>
