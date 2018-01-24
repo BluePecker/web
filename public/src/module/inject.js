@@ -34,10 +34,10 @@ export default (config = {}) => {
         });
     }, (dispatch) => {
         const {namespace} = setting;
-        const method = (action, payload, global = false) => {
+        const method = (action, metadata, global = false) => {
             dispatch({
                 type: global ? action : [namespace, action].join('/'),
-                ...payload
+                ...metadata
             });
         };
 
