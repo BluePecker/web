@@ -26,9 +26,12 @@ export const state = {
 //noinspection JSUnusedGlobalSymbols
 export default {
     username    : (state, payload) => {
+        const {username} = payload;
         return Object.assign({}, state, {
             username: {
-                value: payload.username,
+                status : '',
+                value  : username,
+                message: ''
             },
         });
     },
@@ -40,9 +43,12 @@ export default {
         });
     },
     autoComplete: (state, payload) => {
+        const {username} = payload;
         return Object.assign({}, state, {
             username: {
-                value: payload.username,
+                status : '',
+                value  : username,
+                message: ''
             },
             metadata: payload.metadata,
         });

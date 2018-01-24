@@ -24,7 +24,7 @@ class Login extends React.Component {
             <Tabs className={styles.tabs}>
                 <Tabs.TabPane key="account" tab="账号登录">
                     <Form.Item>
-                        <Input.Group compact style={{height: 32}}>
+                        <Input.Group compact>
                             <AutoComplete
                                 dataSource={metadata}
                                 onChange={usernameOnChange}
