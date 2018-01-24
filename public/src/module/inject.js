@@ -32,7 +32,7 @@ export default (config = {}) => {
         return Object.assign({}, {props}, {
             state: namespace ? state[namespace] : state
         });
-    }, (dispatch, props) => {
+    }, (dispatch) => {
         const {namespace} = setting;
         const method = (action, payload, global = false) => {
             dispatch({
