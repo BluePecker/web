@@ -18,4 +18,7 @@ export default {
             },
         }
     },
+    rpc   : {
+        api: 'http://api.dbox.com/v1/'
+    }
 };
