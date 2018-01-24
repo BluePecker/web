@@ -106,7 +106,7 @@ class Login extends React.Component {
                         <div className={styles.name}>
                             <Link to="/">
                                 <img alt="logo" className={styles.logoImg} src={logo}/>
-                                <span className={styles.title}>BAMBOO管理后台</span>
+                                <span className={styles.title}>BAM管理后台</span>
                             </Link>
                         </div>
                         <div className={styles.desc}>简洁 / 高效 / 智能 / 安全</div>
