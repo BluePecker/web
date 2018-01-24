@@ -169,13 +169,13 @@ export default (state, dispatch) => {
         };
 
         //noinspection JSUnusedGlobalSymbols
-        autoLoginOnChange = (e) => {
-            dispatch('autoLogin', {autoLogin: e.target.checked});
+        mobileOnChange = (e) => {
+            dispatch('mobile', {mobile: e.target.value});
         };
 
         //noinspection JSUnusedGlobalSymbols
-        mobileOnChange = (e) => {
-            dispatch('mobile', {mobile: e.target.value});
+        autoLoginOnChange = (e) => {
+            dispatch('autoLogin', {autoLogin: e.target.checked});
         };
     }
 
