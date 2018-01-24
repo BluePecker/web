@@ -37,28 +37,39 @@
     }
   }
   .main {
-    width: 286px;
+    width: 236px;
     margin: 0 auto;
     text-align: center;
     .tabs {
       padding: 0 2px;
       margin: 0 -2px;
       :global {
-        .ant-tabs-tab {
-          font-size: 16px;
-          line-height: 24px;
+        .has-error:hover .ant-input:not(.ant-input-disabled) {
+          border-color: #f04134;
         }
-        .ant-input-affix-wrapper .ant-input:not(:first-child) {
-          padding-left: 34px;
+        .ant-row {
+          height: 32px;
+        }
+        .ant-tabs .ant-tabs-bar {
+          border-bottom: 0;
+          margin-bottom: 24px;
+          text-align: center;
+          .ant-form-item {
+            margin-bottom: 24px;
+            .ant-form-explain {
+              position: absolute;
+            }
+          }
         }
       }
       .captcha {
         display: block;
         width: 100%;
         margin-top: 4px;
+        padding: 0 8px 0 8px;
       }
       .ant-tabs-tab {
-        margin: 0 16px 0 16px
+        margin: 0 8px 0 8px
       }
     }
 

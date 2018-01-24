@@ -16,8 +16,8 @@ class Login extends React.Component {
 
     render() {
         const {
-            state: {metadata, username, password, autoLogin},
-            passwordOnChange, usernameOnChange, usernameOnSelect, autoLoginOnChange
+            state: {metadata, username, password, mobile, autoLogin},
+            passwordOnChange, usernameOnChange, usernameOnSelect, mobileOnChange, autoLoginOnChange
         } = this.props;
 
         const table = (
@@ -32,7 +32,7 @@ class Login extends React.Component {
                                 style={{width: '100%'}}
                             >
                                 <Input
-                                    value={username}
+                                    value={username.value}
                                     placeholder="用户名"
                                     maxLength="24"
                                     prefix={<Icon type="user" className={styles.inputIcon}/>}
@@ -42,7 +42,7 @@ class Login extends React.Component {
                     </Form.Item>
                     <Form.Item>
                         <Input
-                            value={password}
+                            value={password.value}
                             type="password"
                             placeholder="密码"
                             maxLength="16"
@@ -52,31 +52,45 @@ class Login extends React.Component {
                     </Form.Item>
                 </Tabs.TabPane>
                 <Tabs.TabPane key="mobile" tab="快捷登录">
-                    <Form.Item style={{height: 32}}>
+                    <Form.Item
+                        hasFeedback={mobile.status}
+                        validateStatus={mobile.status}
+                        help={mobile.message}
+                        style={{height: 32, marginBottom: 24, textAlign: 'left'}}
+                    >
                         <Input
                             placeholder="手机号"
                             maxLength="11"
                             prefix={<Icon type="mobile" className={styles.inputIcon}/>}
+                            value={mobile.value}
+                            onChange={mobileOnChange}
                         />
                     </Form.Item>
-                    <Form.Item>
-                        <Row gutter={8}>
-                            <Col span={15}>
+                    <Row gutter={8}>
+                        <Col span={14}>
+                            <Form.Item
+                                hasFeedback={'error'}
+                                validateStatus={'error'}
+                                help={'验证码错误'}
+                                style={{textAlign: 'left'}}
+                            >
                                 <Input
                                     placeholder="验证码"
                                     maxLength="6"
                                     prefix={<Icon type="mail" className={styles.inputIcon}/>}
                                 />
-                            </Col>
-                            <Col span={9}>
+                            </Form.Item>
+                        </Col>
+                        <Col span={10}>
+                            <Form.Item>
                                 <Button
                                     className={styles.captcha}
                                 >
                                     {'获取验证码'}
                                 </Button>
-                            </Col>
-                        </Row>
-                    </Form.Item>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Tabs.TabPane>
             </Tabs>
         );

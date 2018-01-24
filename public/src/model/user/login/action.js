@@ -27,3 +27,8 @@ export const passwordOnChange = (e, dispatch) => {
 export const autoLoginOnChange = (e, dispatch) => {
     dispatch('autoLogin', {autoLogin: e.target.checked});
 };
+
+//noinspection JSUnusedGlobalSymbols
+export const mobileOnChange = (e, dispatch) => {
+    dispatch('mobile', {mobile: e.target.value});
+};
