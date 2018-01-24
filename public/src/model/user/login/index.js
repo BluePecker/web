@@ -25,7 +25,7 @@ export default (state, dispatch) => {
                 message: '',
             },
             // 获取验证码倒计时
-            count    : 60,
+            count    : 0,
         };
 
         //noinspection JSUnusedGlobalSymbols
@@ -140,6 +140,11 @@ export default (state, dispatch) => {
             }
             return Object.assign({}, state, payload);
         };
+
+        //noinspection JSUnusedGlobalSymbols
+        decrease = (state, payload) => {
+            return Object.assign({}, state, payload);
+        };
     }
 
     class Dispatch {
@@ -176,6 +181,20 @@ export default (state, dispatch) => {
         //noinspection JSUnusedGlobalSymbols
         autoLoginOnChange = (e) => {
             dispatch('autoLogin', {autoLogin: e.target.checked});
+        };
+
+        //noinspection JSUnusedGlobalSymbols
+        onGetCaptcha = () => {
+            let count = 60;
+            dispatch('decrease', {count});
+            this.interval = setInterval(() => {
+                if (--count === 0) {
+                    clearInterval(this.interval);
+                    dispatch('decrease', {count: 0});
+                } else {
+                    dispatch('decrease', {count});
+                }
+            }, 1000);
         };
     }
 
