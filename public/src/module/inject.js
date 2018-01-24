@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
+import store from '../model';
 
 export default (config = {}) => {
     let setting = {
@@ -31,7 +32,7 @@ export default (config = {}) => {
         return Object.assign({}, {props}, {
             state: namespace ? state[namespace] : state
         });
-    }, dispatch => {
+    }, (dispatch, props) => {
         const {namespace} = setting;
         const method = (action, payload, global = false) => {
             dispatch({
@@ -40,12 +41,13 @@ export default (config = {}) => {
             });
         };
 
-        let actions = require(`../model/${namespace}/action.js`);
+        let actions = {}, model = require(`../model/${namespace}/`).default;
+        model = new (model(store.getState()[namespace], method).Dispatch);
 
-        Object.keys(actions).forEach(key => {
-            actions[key] = new Proxy(actions[key], {
+        Object.keys(model).forEach(key => {
+            actions[key] = new Proxy(model[key], {
                 apply(target, ctx, args) {
-                    return Reflect.apply(target, ctx, args.concat([method]));
+                    return Reflect.apply(target, ctx, args);
                 }
             });
         });
