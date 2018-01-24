@@ -18,7 +18,7 @@ class Bootstrap {
             const start = Date.now();
             await next();
             const ms = Date.now() - start;
-            this.logger.info('%s %s %s - %sms', ctx.status, ctx.method, ctx.url, ms);
+            Log4js.getLogger().info('%s %s %s - %sms', ctx.status, ctx.method, ctx.url, ms);
         });
         this.app.use(async (ctx, next) => {
             const start = Date.now();
