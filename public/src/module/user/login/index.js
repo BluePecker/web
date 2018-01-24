@@ -14,9 +14,14 @@ import Inject from '../../inject';
 
 class Login extends React.Component {
 
+    onGetCaptcha = () => {
+        // todo fix bug
+
+    };
+
     render() {
         const {
-            state: {metadata, username, password, mobile, autoLogin, captcha},
+            state: {metadata, username, password, mobile, autoLogin, captcha, count},
             usernameOnChange, usernameOnSelect, passwordOnChange, mobileOnChange, autoLoginOnChange, captchaOnChange
         } = this.props;
 
@@ -86,9 +91,11 @@ class Login extends React.Component {
                         <Col span={10}>
                             <Form.Item>
                                 <Button
+                                    disabled={count !== 60}
                                     className={styles.captcha}
+                                    onClick={this.onGetCaptcha}
                                 >
-                                    {'获取验证码'}
+                                    {count === 60 ? '获取验证码' : `${count}s`}
                                 </Button>
                             </Form.Item>
                         </Col>

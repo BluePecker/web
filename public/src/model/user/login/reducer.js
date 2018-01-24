@@ -20,7 +20,9 @@ export const state = {
         status : '',
         value  : '',
         message: '',
-    }
+    },
+    // 获取验证码倒计时
+    count    : 60,
 };
 
 //noinspection JSUnusedGlobalSymbols
