@@ -18,7 +18,7 @@ export default (server, body) => {
         if (response.status === 200) {
             return response.json();
         } else {
-            console.log(response.statusText);
+            throw new Error(response.statusText);
         }
     });
 };
