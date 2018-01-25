@@ -9,8 +9,15 @@ import Request from 'request';
  * @property {object} app
  */
 class Bootstrap {
+    /**
+     * @typedef {{use:function}} this.app
+     */
+    app;
 
     constructor() {
+        /**
+         * @typedef {{post}} router
+         */
         const router = Router();
 
         this.app = new Koa();
