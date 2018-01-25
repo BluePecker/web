@@ -22,7 +22,8 @@ export default (server, body) => {
         if (response.status === 200) {
             return response.json();
         } else {
-            return bluebird.reject(response.statusText);
+            const error = new Error(response.statusText);
+            return bluebird.reject(error);
         }
     });
 };
