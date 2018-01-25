@@ -31,13 +31,13 @@ class Bootstrap {
             ctx.set('X-Response-Time', `${Date.now() - start}ms`);
         });
 
-        const {rpc} = this.loadConfig();
-        Object.keys(rpc || {}).forEach(name => {
+        const {RPC} = this.loadConfig();
+        Object.keys(RPC || {}).forEach(name => {
             router.post(`/${name}`, async (ctx) => {
                 const {method, resource, ...query} = ctx.request.body;
                 const METHOD = (method || 'post').toUpperCase();
                 let options = {
-                    uri    : `${rpc[name].replace(/\/$/, '')}/${(resource || '').replace(/^\//, '')}`,
+                    uri    : `${RPC[name].replace(/\/$/, '')}/${(resource || '').replace(/^\//, '')}`,
                     method : METHOD,
                     timeout: 10000,
                     headers: ctx.headers,

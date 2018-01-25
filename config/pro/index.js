@@ -18,7 +18,7 @@ export default {
             },
         }
     },
-    rpc   : {
-        api: 'http://api.dbox.com/v1/'
+    RPC   : {
+        logic: 'http://api.dbox.com/v1/'
     }
 };
