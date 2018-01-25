@@ -78,7 +78,6 @@ module.exports = {
                             loader : 'css-loader',
                             options: {
                                 localIdentName: '[local]',
-                                // localIdentName: '[name]__[local]-[hash:base64:5]',
                                 importLoaders : 1,
                                 modules       : true,
                                 autoprefixer  : true,
@@ -96,7 +95,6 @@ module.exports = {
                             loader : 'css-loader',
                             options: {
                                 localIdentName: '[local]',
-                                // localIdentName: '[name]__[local]-[hash:base64:5]',
                                 importLoaders : 1,
                                 modules       : true,
                                 autoprefixer  : true,
