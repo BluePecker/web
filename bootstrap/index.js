@@ -5,15 +5,18 @@ import BodyParser from 'koa-bodyparser';
 import Router from 'koa-router';
 import Request from 'request';
 
+/**
+ * @property {object} app
+ */
 class Bootstrap {
 
     constructor() {
         const router = Router();
+
         this.app = new Koa();
         this.logger = Log4js.getLogger();
         this.app.use(Static(__dirname + `/../build`, {extensions: ['html']}));
         this.app.use(BodyParser());
-        this.app.use(router.routes());
         this.app.use(async (ctx, next) => {
             const start = Date.now();
             await next();
@@ -34,10 +37,10 @@ class Bootstrap {
                 const {method, resource, ...query} = ctx.request.body;
                 const METHOD = (method || 'post').toUpperCase();
                 let options = {
-                    headers: ctx.headers,
                     uri    : `${rpc[name].replace(/\/$/, '')}/${(resource || '').replace(/^\//, '')}`,
                     method : METHOD,
                     timeout: 10000,
+                    headers: ctx.headers,
                 };
                 switch (METHOD) {
                 case 'GET':
