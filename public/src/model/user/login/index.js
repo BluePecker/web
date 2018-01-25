@@ -1,3 +1,5 @@
+import fetch from '../../fetch';
+
 //noinspection JSUnusedGlobalSymbols
 export default (state, dispatch) => {
     class Reducer {
@@ -216,7 +218,10 @@ export default (state, dispatch) => {
 
         //noinspection JSUnusedGlobalSymbols
         login = () => {
-            console.log(state);
+            fetch('logic', Object.assign(state, {
+                resource: 'user/login'
+            })).then(res => console.log(res)).catch(err => console.log(err));
+
             dispatch('loading', {loading: true});
         };
     }
