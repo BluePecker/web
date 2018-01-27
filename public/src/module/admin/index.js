@@ -132,35 +132,33 @@ class Admin extends React.Component {
     }
 
     handleChange = keys => {
-        const {dispatch} = this.props;
-        dispatch('expand', {
-            openKeys: keys && keys.length ? this.routes(keys[keys.length - 1]) : []
-        });
+        keys = keys || [];
+        keys.length && (keys = this.routes(keys[keys.length - 1]));
+        const {handleExpand} = this.props;
+        handleExpand(keys);
     };
 
     handleExpand = () => {
-        const {dispatch, location} = this.props;
+        const {handleExpand, location} = this.props;
         const {pathname} = location;
-        dispatch('expand', {openKeys: this.routes(pathname)});
+        handleExpand(this.routes(pathname));
     };
 
     handleToggle = () => {
-        const {dispatch, state: {collapsed}} = this.props;
-        dispatch('collapsed');
+        const {handleCollapsed, state: {collapsed}} = this.props;
+        handleCollapsed();
         // 临时修复bug
         collapsed ? this.handleExpand() : this.handleChange();
     };
 
     handleCollapse = () => {
-        const {dispatch} = this.props;
-        dispatch('collapsed');
+        const {handleCollapsed} = this.props;
+        handleCollapsed();
     };
 
     componentDidMount() {
-        const {dispatch} = this.props;
-        EnquireScreen((bool) => {
-            dispatch('isMobile', {isMobile: bool});
-        });
+        const {handleMobile} = this.props;
+        EnquireScreen(bool => handleMobile(bool));
         // 初始化该展开的菜单
         this.handleExpand();
     }
