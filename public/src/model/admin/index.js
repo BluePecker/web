@@ -47,9 +47,9 @@ export default (state, dispatch) => {
                             name: '状态总览',
                             icon: 'scan'
                         },
-                        safety: {
+                        watch: {
                             name: '安防系统',
-                            icon: 'safety',
+                            icon: 'video-camera',
                         }
                     }
                 },

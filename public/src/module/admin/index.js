@@ -1,6 +1,7 @@
 /**
  * @typedef {{Component:class}} React
  */
+import "antd/dist/antd.less";
 import React from 'react';
 import ClassNames from 'classnames';
 import {Layout, Menu, Icon} from 'antd';
@@ -9,7 +10,6 @@ import DocumentTitle from 'react-document-title';
 import {Link, Route} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
 import PropTypes from 'prop-types';
-import "antd/dist/antd.less";
 
 import Inject from '../inject';
 
@@ -18,7 +18,6 @@ import Avatar from '../../assets/avatar.png';
 import Slider from '../../component/Slider';
 import Header from '../../component/Header';
 import Footer from '../../component/Footer';
-import Breadcrumb from '../../component/Breadcrumb';
 
 const query = {
     'screen-xs': {
@@ -182,33 +181,6 @@ class Admin extends React.Component {
         const {state} = this.props;
         const {collapsed, menu, openKeys, isMobile} = state;
 
-        const content = (
-            <div>
-                <p>
-                    段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
-                    提供跨越设计与开发的体验解决方案。
-                </p>
-                <div>
-                    <a>
-                        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg"/> 快速开始
-                    </a>
-                    <a>
-                        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"/> 产品简介
-                    </a>
-                    <a>
-                        <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"/> 产品文档
-                    </a>
-                </div>
-            </div>
-        );
-
-        const extraContent = (
-            <div>
-                <img alt="这是一个标题" src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"/>
-            </div>
-        );
-
-
         const layout = (
             <Layout>
                 <Slider
@@ -234,37 +206,8 @@ class Admin extends React.Component {
                     >
                     </Header>
                     <Content style={{margin: '24px 24px 0', height: '100%'}}>
-                        <Breadcrumb
-                            title="卡片列表"
-                            content={content}
-                            extraContent={extraContent}
-                        >
-
-                        </Breadcrumb>
                         {this.builderRoute()}
-                        <Footer
-                            links={[{
-                                key        : 'Pro 首页',
-                                title      : 'Pro 首页',
-                                href       : 'http://pro.ant.design',
-                                blankTarget: true,
-                            }, {
-                                key        : 'github',
-                                title      : <Icon type="github"/>,
-                                href       : 'https://github.com/ant-design/ant-design-pro',
-                                blankTarget: true,
-                            }, {
-                                key        : 'Ant Design',
-                                title      : 'Ant Design',
-                                href       : 'http://ant.design',
-                                blankTarget: true,
-                            }]}
-                            copyright={
-                                <div>
-                                    Copyright <Icon type="copyright"/> 2018 蚂蚁金服体验技术部出品
-                                </div>
-                            }
-                        />
+                        <Footer copyright={<div>Copyright <Icon type="copyright"/> 2018 无锡市自来水有限公司</div>}/>
                     </Content>
                 </Layout>
             </Layout>
