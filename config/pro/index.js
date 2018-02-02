@@ -9,7 +9,7 @@ export default {
                 pattern             : "-yyyy-MM-dd.log",
                 type                : "dateFile",
                 filename            : "runtime/logs/web"
-            }
+            },
         },
         categories: {
             default: {
@@ -18,7 +18,6 @@ export default {
             },
         }
     },
-    RPC   : {
-        logic: 'http://api.dbox.com/v1/'
-    }
+    RPC   : {logic: 'http://api.dbox.com/v1/'},
+    socket: 'ws://47.52.136.193:8080',
 };
