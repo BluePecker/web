@@ -14,7 +14,7 @@ rules:
     eqeqeq: 0
     no-return-assign: 0
     semi: [2, always]
-    space-before-function-paren: [2, {"anonymous": "never", "named": "never", "asyncArrow": "ignore"}]
+    space-before-function-paren: [0, {"anonymous": "never", "named": "never", "asyncArrow": "ignore"}]
     yoda: 0
     arrow-spacing: 2
     dot-location: [2, "property"]
@@ -41,3 +41,4 @@ rules:
     react/sort-comp: 0
     react/jsx-max-props-per-line: 0
     react/jsx-first-prop-new-line: [0, "multiline"]
+    jsx-a11y/no-static-element-interactions: 0

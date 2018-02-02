@@ -2,7 +2,7 @@
  * @typedef {{Component:class}} React
  */
 import React from 'react';
-import {Row, Col, Form, List, Card, Switch, Icon, InputNumber} from 'antd';
+import {Row, Col, Form, List, Card, Switch, Icon, InputNumber, Popover, Button} from 'antd';
 
 import Inject from '../../../inject';
 
@@ -23,7 +23,7 @@ class Scan extends React.Component {
     }
 
     render() {
-        const {state: {data: {common, area}}} = this.props;
+        const {state: {data: {common, area}, input, popover}, inputHandle, popoverHandle, submitHandle, switchHandle} = this.props;
 
         const formLayout = {
             labelCol  : {
@@ -118,22 +118,37 @@ class Scan extends React.Component {
                                                         <Switch
                                                             size={'small'}
                                                             checked={Boolean(item.value)}
-                                                            id={item.id}
-                                                            onChange={function (e) {
-                                                                console.log(e, this);
-                                                            }}
+                                                            onChange={(value) => switchHandle(item.id, value)}
                                                         />
                                                     );
                                                     break;
                                                 case 'number':
                                                     context = (
-                                                        <InputNumber
-                                                            min={0}
-                                                            step={0.001}
-                                                            size={'small'}
-                                                            value={item.value}
-                                                            id={item.id}
-                                                        />
+                                                        <Popover
+                                                            content={
+                                                                <div>
+                                                                    <InputNumber
+                                                                        size={'small'}
+                                                                        style={{width: 80, marginRight: 12}}
+                                                                        value={input}
+                                                                        onChange={inputHandle}
+                                                                    />
+                                                                    <Button
+                                                                        type="primary"
+                                                                        size={'small'}
+                                                                        onClick={() => submitHandle(item.id)}
+                                                                    >
+                                                                        确认
+                                                                    </Button>
+                                                                </div>
+                                                            }
+                                                            title={`设置${item.comment}`}
+                                                            visible={popover}
+                                                        >
+                                                            <a onClick={popoverHandle}>
+                                                                {`${item.value}${item.unit}`}
+                                                            </a>
+                                                        </Popover>
                                                     );
                                                     break;
                                                 }
