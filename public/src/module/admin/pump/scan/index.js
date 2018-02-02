@@ -108,16 +108,33 @@ class Scan extends React.Component {
                                     </Col>
                                     <Col span={16}>
                                         <List
-                                            grid={{gutter: 8, xs: 6, sm: 6, md: 6, lg: 6, xl: 6, xxl: 6}}
+                                            grid={{gutter: 8, xs: 2, sm: 2, md: 2, lg: 2, xl: 4, xxl: 6}}
                                             dataSource={Object.keys(item.metadata || {}).map(key => item.metadata[key])}
                                             renderItem={item => {
                                                 let context = (<span>{`${item.value}${item.unit}`}</span>);
                                                 switch (item['ctrlType'].toLowerCase()) {
                                                 case 'switch':
-                                                    context = (<Switch size={'small'} checked={Boolean(item.value)}/>);
+                                                    context = (
+                                                        <Switch
+                                                            size={'small'}
+                                                            checked={Boolean(item.value)}
+                                                            id={item.id}
+                                                            onChange={function (e) {
+                                                                console.log(e, this);
+                                                            }}
+                                                        />
+                                                    );
                                                     break;
                                                 case 'number':
-                                                    context = (<InputNumber min={0} step={0.001} size={'small'}/>);
+                                                    context = (
+                                                        <InputNumber
+                                                            min={0}
+                                                            step={0.001}
+                                                            size={'small'}
+                                                            value={item.value}
+                                                            id={item.id}
+                                                        />
+                                                    );
                                                     break;
                                                 }
                                                 return (
