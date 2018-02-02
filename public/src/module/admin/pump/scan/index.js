@@ -23,7 +23,7 @@ class Scan extends React.Component {
     }
 
     render() {
-        const {state: {data: {common, area}, input, popover}, inputHandle, popoverHandle, submitHandle, switchHandle} = this.props;
+        const {state: {data: {common, area}, input}, inputHandle, submitHandle, switchHandle} = this.props;
 
         const formLayout = {
             labelCol  : {

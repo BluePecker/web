@@ -11,7 +11,6 @@ export default (state, dispatch) => {
         defaultState = {
             data   : {common: {}, area: {}},
             input  : 0,
-            popover: false,
         };
 
         sync = (state, payload) => {
@@ -22,11 +21,6 @@ export default (state, dispatch) => {
         input = (state, payload) => {
             return Object.assign({}, state, payload);
         };
-
-        //noinspection JSUnusedGlobalSymbols
-        popover = state => {
-            return Object.assign({}, state, {popover: !state.popover});
-        }
     }
 
     class Dispatch {
@@ -46,17 +40,11 @@ export default (state, dispatch) => {
         };
 
         //noinspection JSUnusedGlobalSymbols
-        popoverHandle = () => {
-            dispatch('popover');
-        };
-
-        //noinspection JSUnusedGlobalSymbols
         submitHandle = (id) => {
             socket.emit('control', {
                 id, value: store.getState()['admin/pump/scan']['input']
             });
             dispatch('input', {input: 0});
-            dispatch('popover');
         };
 
         //noinspection JSUnusedGlobalSymbols
