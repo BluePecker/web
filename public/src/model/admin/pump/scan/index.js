@@ -55,6 +55,7 @@ export default (state, dispatch) => {
             socket.emit('control', {
                 id, value: store.getState()['admin/pump/scan']['input']
             });
+            dispatch('input', {input: 0});
             dispatch('popover');
         };
 
