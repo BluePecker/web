@@ -10,7 +10,7 @@ export default (state, dispatch) => {
         //noinspection JSUnusedGlobalSymbols
         defaultState = {
             data   : {common: {}, area: {}},
-            input  : '',
+            input  : 0,
             popover: false,
         };
 
