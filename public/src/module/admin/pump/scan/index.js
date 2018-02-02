@@ -146,7 +146,7 @@ class Scan extends React.Component {
                                                             title={`设置${item.comment}`}
                                                             // visible={popover}
                                                         >
-                                                            <a onClick={popoverHandle}>
+                                                            <a>
                                                                 {`${item.value}${item.unit}`}
                                                             </a>
                                                         </Popover>
