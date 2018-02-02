@@ -2,7 +2,7 @@
  * @typedef {{Component:class}} React
  */
 import React from 'react';
-import {Row, Col, Form, List, Card, Switch} from 'antd';
+import {Row, Col, Form, List, Card, Switch, Icon, InputNumber} from 'antd';
 
 import Inject from '../../../inject';
 
@@ -12,120 +12,56 @@ import styles from './style.less';
 
 class Scan extends React.Component {
 
+    componentDidMount() {
+        const {beginSync} = this.props;
+        beginSync();
+    }
+
+    componentWillUnmount() {
+        const {stopSync} = this.props;
+        stopSync();
+    }
+
     render() {
+        const {state: {data: {common, area}}} = this.props;
+
         const formLayout = {
             labelCol  : {
-                xs: {span: 24},
-                sm: {span: 12},
+                xs: {span: 4},
+                sm: {span: 16},
             },
             wrapperCol: {
-                xs: {span: 24},
-                sm: {span: 12},
+                xs: {span: 4},
+                sm: {span: 6},
             },
         };
 
         const content = (
             <div>
                 <Form>
-                    <Row gutter={8}>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'1#水箱液位'}
-                                {...formLayout}
-                            >
-                                <span>1.52m</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'浊度'}
-                                {...formLayout}
-                            >
-                                <span>0.597NTU</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'温度'}
-                                {...formLayout}
-                            >
-                                <span>30˚C</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'BC电压'}
-                                {...formLayout}
-                            >
-                                <span>384V</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'2#水箱液位'}
-                                {...formLayout}
-                            >
-                                <span>1.55m</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'余氯'}
-                                {...formLayout}
-                            >
-                                <span>0.07mg/L</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'相对湿度'}
-                                {...formLayout}
-                            >
-                                <span>51%</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'CA电压'}
-                                {...formLayout}
-                            >
-                                <span>385V</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            {/*<Form.Item*/}
-                            {/*label={'3#水箱液位'}*/}
-                            {/*{...formLayout}*/}
-                            {/*>*/}
-                            {/*<span>1.52m</span>*/}
-                            {/*</Form.Item>*/}
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'UV光强'}
-                                {...formLayout}
-                            >
-                                <span>0W/cm³</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'电能'}
-                                {...formLayout}
-                            >
-                                <span>15328kw/h</span>
-                            </Form.Item>
-                        </Col>
-                        <Col md={6} xs={24}>
-                            <Form.Item
-                                label={'AB电压'}
-                                {...formLayout}
-                            >
-                                <span>389V</span>
-                            </Form.Item>
-                        </Col>
+                    <Row>
+                        {
+                            Object.keys(common.metadata || {}).map((key, index) => {
+                                const {comment, value, unit} = common['metadata'][key];
+                                return (
+                                    <Col md={6} xs={24} style={{display: index >= 12 ? 'none' : 'block'}}>
+                                        <Form.Item
+                                            label={comment.substr(0, 8)}
+                                            {...formLayout}
+                                        >
+                                            <span>
+                                                {`${value}${unit}`}
+                                            </span>
+                                        </Form.Item>
+                                    </Col>
+                                );
+                            })
+                        }
                     </Row>
                 </Form>
+                <div style={{width: '100%', height: 18, textAlign: 'center'}}>
+                    <Icon type="down" style={{color: '#b2b2b3'}}/>
+                </div>
             </div>
         );
 
@@ -135,63 +71,12 @@ class Scan extends React.Component {
             </div>
         );
 
-        const list = [
-            {
-                // 瞬时流量
-                mf: 1.58,
-                // 累计流量
-                af: 34215,
-                // 出水压力
-                op: 0.61,
-                // 设定压力
-                sp: 0.60,
-            }, {
-                // 瞬时流量
-                mf: 1.58,
-                // 累计流量
-                af: 34215,
-                // 出水压力
-                op: 0.61,
-                // 设定压力
-                sp: 0.60,
-            }, {
-                // 瞬时流量
-                mf: 1.58,
-                // 累计流量
-                af: 34215,
-                // 出水压力
-                op: 0.61,
-                // 设定压力
-                sp: 0.60,
-            }, {
-                // 瞬时流量
-                mf: 1.58,
-                // 累计流量
-                af: 34215,
-                // 出水压力
-                op: 0.61,
-                // 设定压力
-                sp: 0.60,
-            }, {
-                // 瞬时流量
-                mf: 1.58,
-                // 累计流量
-                af: 34215,
-                // 出水压力
-                op: 0.61,
-                // 设定压力
-                sp: 0.60,
-            }, {
-                // 瞬时流量
-                mf: 1.58,
-                // 累计流量
-                af: 34215,
-                // 出水压力
-                op: 0.61,
-                // 设定压力
-                sp: 0.60,
-            },
-        ];
+        const IconText = ({type, text}) => (
+            <span>
+                <Icon type={type} style={{marginRight: 8}}/>
+                {text}
+            </span>
+        );
 
         return (
             <Breadcrumb
@@ -199,167 +84,60 @@ class Scan extends React.Component {
                 content={content}
                 extraContent={extraContent}
             >
-                <List
-                    grid={{gutter: 24, lg: 3, md: 2, sm: 1, xs: 1}}
-                    dataSource={list}
-                    renderItem={(item, num) => (
-                        <List.Item>
-                            <Card
-                                hoverable
-                                cover={
-                                    <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
-                                }
-
+                <Card
+                    style={{marginTop: 24}}
+                    bordered={false}
+                    bodyStyle={{padding: '8px 32px 32px 32px'}}
+                >
+                    <List
+                        itemLayout="vertical"
+                        size="large"
+                        dataSource={area}
+                        renderItem={(item) => (
+                            <List.Item
                                 actions={[
-                                    <Form style={{padding: '0 8px'}}>
-                                        <Row gutter={8}>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'1#水泵'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'照明'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'水箱'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'消毒'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'2#水泵'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'照明'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'水箱'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'消毒'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'3#水泵'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'照明'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'水箱'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                            <Col md={6} xs={24}>
-                                                <Form.Item
-                                                    label={'消毒'}
-                                                    {...formLayout}
-                                                >
-                                                    <Switch defaultChecked size="small"/>
-                                                </Form.Item>
-                                            </Col>
-                                        </Row>
-                                    </Form>
+                                    <IconText type="clock-circle-o" text={item['updateTime'].toString().replace(/(T)|(\.000Z)/g, ' ')}/>
                                 ]}
                             >
-                                <Card.Meta
-                                    title={`${['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'][num + 1]}区设备`}
-                                    description={
-                                        <div>
-                                            <Form>
-                                                <Row gutter={8}>
-                                                    <Col md={12} xs={24}>
-                                                        <Form.Item
-                                                            label={'瞬间流量'}
-                                                            {...formLayout}
-                                                        >
-                                                            <span>{item.mf}m³/h</span>
-                                                        </Form.Item>
-                                                    </Col>
-                                                    <Col md={12} xs={24}>
-                                                        <Form.Item
-                                                            label={'出水压力'}
-                                                            {...formLayout}
-                                                        >
-                                                            <span>{item.op}Mpa</span>
-                                                        </Form.Item>
-                                                    </Col>
-                                                    <Col md={12} xs={24}>
-                                                        <Form.Item
-                                                            label={'累计流量'}
-                                                            {...formLayout}
-                                                        >
-                                                            <span>{item.af}m³</span>
-                                                        </Form.Item>
-                                                    </Col>
-                                                    <Col md={12} xs={24}>
-                                                        <Form.Item
-                                                            label={'压力设定'}
-                                                            {...formLayout}
-                                                        >
-                                                            <span>{item.sp}Mpa</span>
-                                                        </Form.Item>
-                                                    </Col>
-                                                </Row>
-                                            </Form>
-                                        </div>
-                                    }
+                                <List.Item.Meta
+                                    title={`${item.area}设备`}
                                 />
-                            </Card>
-                        </List.Item>
-                    )}
-                />
+                                <Row gutter={8}>
+                                    <Col span={8}>
+                                        <img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                                    </Col>
+                                    <Col span={16}>
+                                        <List
+                                            grid={{gutter: 8, xs: 6, sm: 6, md: 6, lg: 6, xl: 6, xxl: 6}}
+                                            dataSource={Object.keys(item.metadata || {}).map(key => item.metadata[key])}
+                                            renderItem={item => {
+                                                let context = (<span>{`${item.value}${item.unit}`}</span>);
+                                                switch (item['ctrlType'].toLowerCase()) {
+                                                case 'switch':
+                                                    context = (<Switch size={'small'} checked={Boolean(item.value)}/>);
+                                                    break;
+                                                case 'number':
+                                                    context = (<InputNumber min={0} step={0.001} size={'small'}/>);
+                                                    break;
+                                                }
+                                                return (
+                                                    <List.Item>
+                                                        <Form.Item
+                                                            label={item.comment}
+                                                            {...formLayout}
+                                                        >
+                                                            {context}
+                                                        </Form.Item>
+                                                    </List.Item>
+                                                );
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
+                            </List.Item>
+                        )}
+                    />
+                </Card>
             </Breadcrumb>
         );
     }
