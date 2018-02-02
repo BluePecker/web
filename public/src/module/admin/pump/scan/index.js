@@ -2,7 +2,7 @@
  * @typedef {{Component:class}} React
  */
 import React from 'react';
-import {Row, Col, Form, List, Card, Switch, Icon, InputNumber, Popover, Button} from 'antd';
+import {Row, Col, Form, List, Card, Switch, Icon, InputNumber, Modal} from 'antd';
 
 import Inject from '../../../inject';
 
@@ -124,33 +124,35 @@ class Scan extends React.Component {
                                                     break;
                                                 case 'number':
                                                     context = (
-                                                        <Popover
-                                                            content={
-                                                                <div>
-                                                                    <InputNumber
-                                                                        min={0}
-                                                                        size={'small'}
-                                                                        style={{width: 80, marginRight: 12}}
-                                                                        value={input}
-                                                                        onChange={inputHandle}
-                                                                    />
-                                                                    <Button
-                                                                        type="primary"
-                                                                        size={'small'}
-                                                                        onClick={() => submitHandle(item.id)}
-                                                                    >
-                                                                        确认
-                                                                    </Button>
-                                                                </div>
-                                                            }
-                                                            title={`设置${item.comment}`}
-                                                            // visible={popover}
-                                                        >
-                                                            <a>
-                                                                {`${item.value}${item.unit}`}
-                                                            </a>
-                                                        </Popover>
-                                                    );
+                                                        <a
+                                                            onClick={() => {
+                                                                Modal.confirm({
+                                                                    title     : `设置${item.comment}`,
+                                                                    content   : (
+                                                                        <div
+                                                                            style={{
+                                                                                textAlign: 'center',
+                                                                                padding  : '8px 0'
+                                                                            }}
+                                                                        >
+                                                                            <InputNumber
+                                                                                min={0}
+                                                                                value={input}
+                                                                                onChange={inputHandle}
+                                                                            />
+                                                                        </div>
+                                                                    ),
+                                                                    okText    : '确认',
+                                                                    cancelText: '取消',
+                                                                    onOk() {
+                                                                        submitHandle(item.id);
+                                                                    },
+                                                                    onCancel() {
+                                                                        inputHandle(0);
+                                                                    },
+                                                                });
+                                                            }}
+                                                        >{`${item.value}${item.unit}`}</a>);
                                                     break;
                                                 }
                                                 return (
