@@ -128,6 +128,7 @@ class Scan extends React.Component {
                                                             content={
                                                                 <div>
                                                                     <InputNumber
+                                                                        min={0}
                                                                         size={'small'}
                                                                         style={{width: 80, marginRight: 12}}
                                                                         value={input}
@@ -143,7 +144,7 @@ class Scan extends React.Component {
                                                                 </div>
                                                             }
                                                             title={`设置${item.comment}`}
-                                                            visible={popover}
+                                                            // visible={popover}
                                                         >
                                                             <a onClick={popoverHandle}>
                                                                 {`${item.value}${item.unit}`}
