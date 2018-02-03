@@ -80,7 +80,7 @@ class Admin extends React.Component {
             });
             return map;
         };
-        return `${traverse(menu)[unique] || '管理后台'}-Bamboo`;
+        return `${traverse(menu)[unique] || '管理后台'}-无锡水务中控`;
     }
 
     getNavMenuItems(menu, prefix = '') {

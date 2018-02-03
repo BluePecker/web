@@ -5,6 +5,8 @@ import BodyParser from 'koa-bodyparser';
 import Router from 'koa-router';
 import Request from 'request';
 
+import Helper from '../utils/helper';
+
 /**
  * @property {object} app
  */
@@ -94,10 +96,7 @@ class Bootstrap {
     }
 
     // 加载配置文件
-    loadConfig = () => require(`../config/${this.env()}`).default;
-
-    // 获取环境变量
-    env = () => process.env.NODE_ENV || 'pro';
+    loadConfig = () => Helper.loadConfig();
 
     // 初始化日志
     static logger(logger) {

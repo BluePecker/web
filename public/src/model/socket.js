@@ -1,8 +1,14 @@
 import Io from 'socket.io-client';
 
-const socket = Io('ws://47.52.136.193:8080');
-// socket.on('connect', () => {
-//     console.log('');
-// });
+import Helper from '../../../utils/helper';
 
-export default socket;
+// const socket = Io('ws://47.52.136.193:8080');
+// const socket = Io(Helper.loadConfig()['socket']);
+
+class Socket {
+    constructor() {
+        return Io(Helper.loadConfig()['socket']);
+    }
+}
+
+export default new Socket();
