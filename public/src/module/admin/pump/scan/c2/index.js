@@ -8,6 +8,7 @@ import Inject from '../../../../inject';
 
 import Breadcrumb from '../../../../../component/Breadcrumb';
 
+import ti1 from '../../../../../assets/ti1.png';
 import './style.less';
 
 class Scan extends React.Component {
@@ -94,7 +95,7 @@ class Scan extends React.Component {
                                 />
                                 <Row gutter={8}>
                                     <Col span={8}>
-                                        <img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>
+                                        <img width={272} alt="logo" src={ti1}/>
                                     </Col>
                                     <Col span={16}>
                                         <List
