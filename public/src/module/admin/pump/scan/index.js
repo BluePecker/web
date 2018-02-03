@@ -8,7 +8,7 @@ import Inject from '../../../inject';
 
 import Breadcrumb from '../../../../component/Breadcrumb';
 
-import styles from './style.less';
+import './style.less';
 
 class Scan extends React.Component {
 
@@ -41,10 +41,10 @@ class Scan extends React.Component {
                 <Form>
                     <Row>
                         {
-                            Object.keys(common.metadata || {}).map((key, index) => {
+                            Object.keys(common.metadata || {}).map((key) => {
                                 const {comment, value, unit} = common['metadata'][key];
                                 return (
-                                    <Col md={6} xs={24} style={{display: index >= 12 ? 'none' : 'block'}}>
+                                    <Col md={4} xs={24}>
                                         <Form.Item
                                             label={comment.substr(0, 8)}
                                             {...formLayout}
@@ -59,15 +59,6 @@ class Scan extends React.Component {
                         }
                     </Row>
                 </Form>
-                <div style={{width: '100%', height: 18, textAlign: 'center'}}>
-                    <Icon type="down" style={{color: '#b2b2b3'}}/>
-                </div>
-            </div>
-        );
-
-        const extraContent = (
-            <div className={styles.extraImg}>
-                <img alt='' src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"/>
             </div>
         );
 
@@ -80,9 +71,8 @@ class Scan extends React.Component {
 
         return (
             <Breadcrumb
-                title="泵房总览-紫金城北区"
+                title="泵房总览-采菱家园2期"
                 content={content}
-                extraContent={extraContent}
             >
                 <Card
                     style={{marginTop: 24}}
