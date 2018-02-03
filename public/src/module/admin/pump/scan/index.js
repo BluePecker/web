@@ -8,7 +8,7 @@ import Inject from '../../../inject';
 
 import Breadcrumb from '../../../../component/Breadcrumb';
 
-import ti1 from '../../../../../assets/ti1.png';
+import ti1 from '../../../../assets/ti1.png';
 import './style.less';
 
 class Scan extends React.Component {
