@@ -4,7 +4,6 @@
 import React from 'react';
 import {Layout, Icon, Divider, Dropdown, Avatar, Spin, Menu} from 'antd';
 import {Link} from 'react-router-dom';
-import ClassNames from 'classnames';
 
 import header from './header.less';
 
@@ -31,11 +30,11 @@ export default class Header extends React.Component {
         );
 
         return (
-            <Layout.Header className={ClassNames(header.header)}>
+            <Layout.Header className={header.header}>
                 {isMobile && (
                     [
                         (
-                            <Link to="/" className={ClassNames(header.singleLogo)} key="logo">
+                            <Link to="/" className={header.singleLogo} key="logo">
                                 <img src={logo} alt="logo" width="32"/>
                             </Link>
                         ),
@@ -43,11 +42,11 @@ export default class Header extends React.Component {
                     ]
                 )}
                 <Icon
-                    className={ClassNames(header.trigger)}
+                    className={header.trigger}
                     type={collapsed ? 'menu-unfold' : 'menu-fold'}
                     onClick={this.handleToggle}
                 />
-                <div className={ClassNames(header.right)}>
+                <div className={header.right}>
                     {user && user.username ? (
                         <Dropdown overlay={menu}>
                             <span className={`${header.action} ${header.account}`}>

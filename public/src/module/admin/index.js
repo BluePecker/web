@@ -1,7 +1,6 @@
 /**
  * @typedef {{Component:class}} React
  */
-import "antd/dist/antd.less";
 import React from 'react';
 import ClassNames from 'classnames';
 import {Layout, Menu, Icon} from 'antd';
@@ -10,6 +9,8 @@ import DocumentTitle from 'react-document-title';
 import {Link, Route} from 'react-router-dom';
 import {enquireScreen as EnquireScreen} from 'enquire-js';
 import PropTypes from 'prop-types';
+
+import './style.less';
 
 import Inject from '../inject';
 

@@ -49,14 +49,14 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test  : /\.(woff|eot|ttf)$/,
+                test  : /\.(woff|eot|ttf|svg#.*)$/,
                 loader: [
                     {
-                        loader : 'file-loader',
+                        loader : 'url-loader',
                         options: {
                             name: 'asset/font/[hash].[ext]'
                         }
-                    }
+                    },
                 ]
             },
             {
