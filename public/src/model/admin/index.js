@@ -5,7 +5,7 @@ export default (state, dispatch) => {
         //noinspection JSUnusedGlobalSymbols
         defaultState = {
             menu     : {
-                home    : {
+                home  : {
                     name    : '管理后台',
                     icon    : 'home',
                     children: {
@@ -43,9 +43,20 @@ export default (state, dispatch) => {
                     name    : '泵房管理',
                     icon    : 'appstore-o',
                     children: {
-                        scan  : {
-                            name: '状态总览',
-                            icon: 'scan'
+                        scan : {
+                            name    : '状态总览',
+                            icon    : 'scan',
+                            children: {
+                                c1: {
+                                    name: '紫荆城北区',
+                                },
+                                c2: {
+                                    name: '聚湖半岛',
+                                },
+                                c3: {
+                                    name: '采菱家园2期',
+                                },
+                            }
                         },
                         watch: {
                             name: '安防系统',

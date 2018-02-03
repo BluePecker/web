@@ -1,0 +1,40 @@
+@import "~antd/lib/style/themes/default.less";
+
+.content {
+  margin: 0 24px;
+}
+
+.pageHeader {
+  .content {
+    margin-bottom: 0;
+  }
+}
+
+.extraImg {
+  margin-top: -58px;
+  text-align: center;
+  width: 195px;
+  float: right;
+  img {
+    width: 100%;
+    position: relative;
+    top: 35px;
+  }
+}
+
+.ant-form-item {
+  display: flex;
+  text-align: right;
+  margin: 0;
+  height: 30px;
+}
+
+.ant-form-item-label {
+  overflow: visible;
+}
+
+@media screen and (max-width: @screen-md) {
+  .extraImg {
+    display: none;
+  }
+}
