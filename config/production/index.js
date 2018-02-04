@@ -19,5 +19,5 @@ export default {
         }
     },
     RPC   : {logic: 'http://api.dbox.com/v1/'},
-    socket: 'ws://47.52.136.193:8080',
+    socket: 'ws://192.168.1.157:8080',
 };
