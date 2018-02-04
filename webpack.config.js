@@ -116,7 +116,7 @@ module.exports = {
             filename: 'index.html',
             favicon : './public/favicon.ico'
         }),
-        // new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin(),
         new extracttextplugin("asset/css/[hash].css"),
         new manifestplugin('build/manifest.json'),
         new webpack.optimize.OccurrenceOrderPlugin(),
