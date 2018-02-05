@@ -43,7 +43,52 @@ class Scan extends React.Component {
                     <Row>
                         {
                             Object.keys(common.metadata || {}).map((key) => {
-                                const {comment, value, unit} = common['metadata'][key];
+                                const {id, comment, value, unit, ctrlType} = common['metadata'][key];
+                                let context = (<span>{`${value}${unit}`}</span>);
+                                switch (ctrlType.toLowerCase()) {
+                                case 'switch':
+                                    context = (
+                                        <Switch
+                                            size={'small'}
+                                            checked={Boolean(value)}
+                                            onChange={(value) => switchHandle(id, value)}
+                                        />
+                                    );
+                                    break;
+                                case 'number':
+                                    context = (
+                                        <a
+                                            onClick={() => {
+                                                Modal.confirm({
+                                                    title     : `设置${comment}`,
+                                                    content   : (
+                                                        <div
+                                                            style={{
+                                                                textAlign: 'center',
+                                                                padding  : '8px 0'
+                                                            }}
+                                                        >
+                                                            <InputNumber
+                                                                min={0}
+                                                                value={input}
+                                                                onChange={inputHandle}
+                                                            />
+                                                        </div>
+                                                    ),
+                                                    okText    : '确认',
+                                                    cancelText: '取消',
+                                                    onOk() {
+                                                        submitHandle(id);
+                                                    },
+                                                    onCancel() {
+                                                        inputHandle(0);
+                                                    },
+                                                });
+                                            }}
+                                        >{`${value}${unit}`}</a>);
+                                    break;
+                                }
+
                                 return (
                                     <Col md={4} xs={24}>
                                         <Form.Item
@@ -51,7 +96,7 @@ class Scan extends React.Component {
                                             {...formLayout}
                                         >
                                             <span>
-                                                {`${value}${unit}`}
+                                                {context}
                                             </span>
                                         </Form.Item>
                                     </Col>
