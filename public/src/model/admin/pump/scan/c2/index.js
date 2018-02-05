@@ -42,7 +42,7 @@ export default (state, dispatch) => {
         //noinspection JSUnusedGlobalSymbols
         submitHandle = (id) => {
             socket.emit('control', {
-                id, value: store.getState()['admin/pump/scan']['input']
+                id, value: store.getState()['admin/pump/scan/c2']['input']
             });
             dispatch('input', {input: 0});
         };
