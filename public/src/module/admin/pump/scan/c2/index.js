@@ -44,7 +44,7 @@ class Scan extends React.Component {
                         {
                             Object.keys(common.metadata || {}).map((key) => {
                                 const {id, comment, value, unit, ctrlType} = common['metadata'][key];
-                                let context = (<span>{`${value.toFixed(3)}${unit}`}</span>);
+                                let context = (<span>{`${value}${unit}`}</span>);
                                 switch (ctrlType.toLowerCase()) {
                                 case 'switch':
                                     context = (
@@ -85,7 +85,7 @@ class Scan extends React.Component {
                                                     },
                                                 });
                                             }}
-                                        >{`${value.toFixed(3)}${unit}`}</a>);
+                                        >{`${value}${unit}`}</a>);
                                     break;
                                 }
                                 return (
@@ -146,7 +146,7 @@ class Scan extends React.Component {
                                             grid={{gutter: 8, xs: 2, sm: 2, md: 2, lg: 2, xl: 4, xxl: 6}}
                                             dataSource={Object.keys(item.metadata || {}).map(key => item.metadata[key])}
                                             renderItem={item => {
-                                                let context = (<span>{`${item.value.toFixed(3)}${item.unit}`}</span>);
+                                                let context = (<span>{`${item.value}${item.unit}`}</span>);
                                                 switch (item['ctrlType'].toLowerCase()) {
                                                 case 'switch':
                                                     context = (
@@ -187,7 +187,7 @@ class Scan extends React.Component {
                                                                     },
                                                                 });
                                                             }}
-                                                        >{`${item.value.toFixed(3)}${item.unit}`}</a>);
+                                                        >{`${item.value}${item.unit}`}</a>);
                                                     break;
                                                 }
                                                 return (
